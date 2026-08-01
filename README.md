@@ -1,8 +1,16 @@
-﻿# Cantina da Nonna
+# Cantina da Nonna
 
 Projeto full stack de estudo criado por Jose Tavares, com front-end institucional/cardapio e back-end Java Spring Boot integrado ao banco MySQL/MariaDB do XAMPP.
 
 A ideia do projeto e evoluir passo a passo, mantendo o codigo didatico, comentado e compativel com Visual Studio Code e IntelliJ IDEA.
+
+## Documentacao tecnica
+
+Para continuar o projeto com outra LLM ou com outro programador, consulte:
+
+```text
+DOCUMENTACAO_TECNICA.md
+```
 
 ## Estrutura do repositorio
 
