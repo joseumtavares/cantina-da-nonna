@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <!-- A tag <head> reúne informações da página que não aparecem diretamente no conteúdo (título da aba, ícones, arquivos de estilo). -->
+  <head>
+    <!-- <meta charset> define a codificação de caracteres, permitindo acentos e caracteres especiais do português. -->
+    <meta charset="UTF-8">
+
+    <!-- <meta name="viewport"> faz a página se adaptar corretamente a celulares, tablets e computadores. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Ícone exibido na aba do navegador. -->
+    <link rel="icon" type="image/png" href="../favicon/favicon.png">
+
+    <!-- Bootstrap CSS: biblioteca externa com o grid, os componentes prontos
+         (navbar, cards, botões, formulários) e os utilitários responsivos
+         que agora sustentam todo o layout do site. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Fontes do Google Fonts: uma serifada para títulos (Playfair Display)
+         e uma sem serifa para textos (Mulish), substituindo a fonte antiga. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Variables CSS: cofre com as cores e fontes da marca, e também onde
+         essas cores são ensinadas ao Bootstrap (variáveis --bs-...). -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <!-- Theme CSS: apenas os toques exclusivos da identidade da Cantina que
+         o Bootstrap não tem pronto (navbar de marca, cards de produto,
+         mapa do rodapé, etc). -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <!-- CSS da biblioteca Leaflet, usada para exibir o mapa interativo do rodapé. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- <title> define o texto exibido na aba do navegador. -->
+    <title>Nossa História - Cantina da Nonna</title>
+  </head>
+
+  <body>
+    <!--
+      CABEÇALHO E MENU (NAVBAR) DO SITE
+      Este bloco se repete em todas as páginas. Usa o componente "navbar"
+      pronto do Bootstrap: ele já resolve sozinho o menu recolhido (hambúrguer)
+      no celular através do atributo data-bs-toggle="collapse" no botão abaixo.
+      No futuro, quando o back-end existir, este trecho pode virar um
+      "component"/"partial" reaproveitável (ex.: um include de template),
+      em vez de ficar copiado manualmente em cada página HTML.
+    -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow" data-bs-theme="dark">
+        <!-- .container centraliza o conteúdo da navbar e aplica a mesma
+             largura máxima usada no restante do site. -->
+        <div class="container">
+          <!-- navbar-brand: link especial do Bootstrap para a marca do site (logotipo + nome). -->
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img class="marca-logo" src="../images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
+            <span class="marca-texto">
+              <span class="marca-detalhe d-block">Cantina italiana artesanal</span>
+              Cantina da Nonna
+            </span>
+          </a>
+
+          <!-- Botão do menu hambúrguer: o próprio Bootstrap mostra e esconde o
+               menu abaixo dele quando a tela é pequena (não precisamos mais de
+               JavaScript próprio para isso). -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Área do menu que recolhe no celular e aparece inteira no computador. -->
+          <div class="collapse navbar-collapse" id="menuPrincipal">
+            <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-2 py-2 py-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Início</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="nossa-historia.html" aria-current="page">Nossa História</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="cardapio.html">Cardápio</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="btn btn-cta-reserva" href="reserva.html">Faça sua reserva</a>
+          </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- <main> define o conteúdo principal da página. -->
+    <main>
+      <!-- HERO da página: título e resumo, iguais em todas as páginas internas. -->
+      <section class="pagina-hero py-5 mb-5">
+        <div class="container text-center text-lg-start">
+          <p class="texto-destaque-superior">Tradição italiana em família</p>
+          <h1 class="mb-3">Nossa História</h1>
+          <p class="lead mb-0">Uma mesa cheia de histórias, sabores e tradições.</p>
+        </div>
+      </section>
+
+      <div class="container pb-5">
+        <!-- Seção de abertura com texto e imagem lado a lado (empilha no celular). -->
+        <section class="row align-items-center g-4 mb-5">
+          <div class="col-12 col-lg-6">
+            <p>
+              Algumas receitas alimentam o corpo. Outras despertam memórias.
+            </p>
+          </div>
+          <div class="col-12 col-lg-6 text-center">
+            <!-- img-fluid é a classe do Bootstrap que deixa a imagem responsiva. -->
+            <img class="imagem-tematica img-fluid" src="../images/nossa_historia.png" alt="Mesa italiana tradicional representando a história da Cantina da Nonna">
+          </div>
+        </section>
+
+        <!-- Seção sobre a origem e inspiração da Cantina da Nonna. -->
+        <section class="card mb-4">
+          <div class="card-body">
+            <p>
+              A Cantina da Nonna nasceu inspirada nas antigas cozinhas italianas, onde cada prato era preparado com tempo, cuidado e um ingrediente especial: o amor pela família.
+            </p>
+
+            <p class="mb-0">
+              Nossa história é uma homenagem às nonnas italianas que transformaram ingredientes simples em momentos inesquecíveis. Receitas passadas de geração em geração, reunindo pessoas ao redor da mesa e criando lembranças que permanecem para sempre.
+            </p>
+          </div>
+        </section>
+
+        <!-- Seção sobre a presença da alma italiana em Santa Catarina. -->
+        <section class="mb-4">
+          <h2>A alma italiana em Santa Catarina</h2>
+
+          <p>
+            A tradição italiana também faz parte da história de Santa Catarina. A partir do século XIX, imigrantes vindos principalmente do norte da Itália trouxeram seus costumes, suas receitas e a paixão pela boa comida.
+          </p>
+
+          <p>
+            Em novas terras, essas famílias mantiveram suas raízes e adaptaram sua culinária aos ingredientes locais, criando uma identidade única: uma cozinha marcada pelas massas artesanais, molhos preparados lentamente, pães, queijos, vinhos e sabores que representam união e acolhimento.
+          </p>
+
+          <p class="mb-0">
+            Essa mistura entre a tradição italiana e a cultura catarinense deu origem a uma gastronomia rica em história e afeto.
+          </p>
+        </section>
+
+        <!-- Seção sobre a experiência gastronômica oferecida pela cantina. -->
+        <section class="card">
+          <div class="card-body">
+            <h2>O sabor da tradição em cada prato</h2>
+
+            <p>
+              Na Cantina da Nonna, cada receita é preparada para proporcionar uma experiência completa.
+            </p>
+
+            <p>
+              As massas representam o cuidado artesanal das famílias italianas. As pizzas carregam a tradição de Nápoles e o prazer de compartilhar bons momentos. As entradas despertam o desejo de conversar e celebrar. As sobremesas preservam a delicadeza da confeitaria italiana.
+            </p>
+
+            <p>
+              Mais do que uma refeição, queremos proporcionar uma viagem de sabores, aromas e lembranças.
+            </p>
+
+            <p>
+              Porque na Cantina da Nonna, cada prato conta uma história.
+            </p>
+
+            <p class="fs-5 mb-0">
+              <strong>Benvenuto à nossa mesa.</strong>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- <footer> define o rodapé, repetido em todas as páginas do site. -->
+    <footer class="pt-5 pb-4 mt-5">
+      <div class="container">
+        <!-- Row Bootstrap: contatos em uma coluna e localização/mapa em outra,
+             empilhando automaticamente no celular. -->
+        <div class="row g-4">
+          <!-- Coluna de contatos. -->
+          <div class="col-12 col-lg-4">
+            <h2>Contatos</h2>
+
+            <!-- Link de e-mail para reservas. -->
+            <p>
+              Email: <a href="mailto:resevras@cantinadanonna.com.br">resevras@cantinadanonna.com.br</a>
+            </p>
+
+            <!-- Perfil do Instagram informado para contato social. -->
+            <p>
+              Instagram: @cantina da nonna
+            </p>
+
+            <!-- Link do WhatsApp usando wa.me com o telefone da cantina. -->
+            <p class="d-flex align-items-center gap-2">
+              <a class="d-inline-flex align-items-center gap-2 text-decoration-none" href="https://wa.me/5548996249817" target="_blank" rel="noopener noreferrer">
+                <img width="24" height="24" src="../images/whatsapp.png" alt="Logotipo do WhatsApp">
+                WhatsApp: (48) 99624-9817
+              </a>
+            </p>
+          </div>
+
+          <!-- Coluna de localização, com sub-row para texto do endereço + mapa. -->
+          <div class="col-12 col-lg-8">
+            <div class="row g-4">
+              <!-- Bloco textual do endereço. -->
+              <div class="col-12 col-md-5">
+                <h2>Como chegar</h2>
+
+                <p>
+                  Rua Renata Costa Nº 945 - Centro
+                  <br> Balneário Arroio do Silva - SC
+                </p>
+              </div>
+
+              <!-- Div onde o Leaflet monta o mapa interativo. -->
+              <div class="col-12 col-md-7">
+                <div id="mapa-rodape" class="mapa-rodape" title="Clique no mapa para abrir a rota no Google Maps"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha divisória sutil antes dos direitos autorais. -->
+        <hr class="border-secondary-subtle my-4">
+
+        <!-- Texto de direitos autorais. -->
+        <p class="text-center small mb-0">&copy; 2026 Cantina da Nonna. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Biblioteca JavaScript do Leaflet, carregada antes do nosso arquivo de mapa. -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Bootstrap JS Bundle: liga o funcionamento da navbar (menu recolhido),
+         além de outros componentes interativos do Bootstrap. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- Arquivo JavaScript local responsável por montar o minimapa do rodapé. -->
+    <script src="../js/mapa.js"></script>
+
+    <!-- Arquivo JavaScript local com pequenos ajustes do menu e o ponto de
+         partida para futuras integrações com o back-end. -->
+    <script src="../js/site.js"></script>
+  </body>
+</html>

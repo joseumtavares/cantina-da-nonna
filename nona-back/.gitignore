@@ -1,0 +1,45 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Environment variables ###
+# Arquivo local com credenciais do banco. Nao versionar quando tiver senha real.
+.env
+
+### VS Code ###
+# CONFIGURACAO ORIGINAL:
+# Ignorava toda a pasta .vscode, inclusive arquivos uteis para padronizar o projeto.
+# .vscode/
+
+# CONFIGURACAO AJUSTADA:
+# Ignora configuracoes pessoais, mas permite versionar launch.json e extensions.json.
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json

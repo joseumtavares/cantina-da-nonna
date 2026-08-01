@@ -1,0 +1,23 @@
+{
+    // Extensoes recomendadas para desenvolver o backend Java/Spring no VS Code.
+    // Elas ajudam a manter compatibilidade com o projeto Maven criado no IntelliJ IDEA.
+    "recommendations": [
+        // Pacote principal para Java no VS Code.
+        "vscjava.vscode-java-pack",
+
+        // Suporte para projetos Maven, comandos de build e dependencias.
+        "vscjava.vscode-maven",
+
+        // Pacote com ferramentas oficiais para Spring Boot.
+        "vmware.vscode-boot-dev-pack",
+
+        // Recursos de edicao, validacao e navegacao para Spring Boot.
+        "vmware.vscode-spring-boot",
+
+        // Painel para iniciar, parar e acompanhar aplicacoes Spring Boot.
+        "vscjava.vscode-spring-boot-dashboard",
+
+        // Criacao e gerenciamento de projetos Spring Initializr no VS Code.
+        "vscjava.vscode-spring-initializr"
+    ]
+}

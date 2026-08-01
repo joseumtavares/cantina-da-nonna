@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-NonaBackApplication<nona-back>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.nona_back.NonaBackApplication",
+            "projectName": "nona-back",
+            "args": "",
+            // CONFIGURACAO ORIGINAL:
+            // Apontava para um arquivo .env que ainda nao existe no projeto.
+            // "envFile": "${workspaceFolder}/.env",
+
+            // CONFIGURACAO ORIGINAL SEM BANCO:
+            // "env": {},
+
+            // CONFIGURACAO AJUSTADA PARA MYSQL/XAMPP:
+            // Estas variaveis tambem podem ser configuradas no IntelliJ IDEA em Run Configuration > Environment variables.
+            "env": {
+                "DB_URL": "jdbc:mysql://127.0.0.1:3306/nona-db?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true",
+                "DB_USERNAME": "root",
+                "DB_PASSWORD": ""
+            }
+        }
+    ]
+}

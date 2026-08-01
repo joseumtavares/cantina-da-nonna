@@ -1,0 +1,33 @@
+# Criado por Jose Tavares.
+# Arquivo de ignore do repositorio full stack Cantina da Nonna.
+
+# Java / Maven
+**/target/
+**/build/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Variaveis de ambiente e credenciais locais
+.env
+**/.env
+!**/.env.example
+
+# IDEs
+.idea/
+**/.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code: manter configuracoes compartilhaveis quando existirem
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs e arquivos temporarios
+*.log
+*.tmp
+*.temp

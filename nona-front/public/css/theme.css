@@ -1,0 +1,277 @@
+/*
+  THEME.CSS
+  ---------------------------------------------------------------------------
+  Este arquivo guarda SOMENTE o que o Bootstrap não resolve sozinho: os
+  toques exclusivos da identidade visual da Cantina da Nonna (fundo com
+  gradiente quente, navbar com o logotipo, cards de produto com efeito ao
+  passar o mouse, o "balão" do preço, o mapa do rodapé, etc).
+
+  Tudo que é estrutura (grid, colunas, espaçamento, alinhar itens lado a
+  lado, esconder/mostrar em telas pequenas) já vem pronto do Bootstrap e é
+  usado direto no HTML através de classes como "container", "row", "col-6",
+  "d-flex", "gap-3", "py-4", etc. Por isso este arquivo é bem mais curto do
+  que os antigos components.css + layout.css juntos.
+*/
+
+/* ---------------------------------------------------------------------
+   BASE DA PÁGINA
+   ------------------------------------------------------------------- */
+
+/* Deixa a rolagem suave quando um link aponta para uma âncora (#) da
+   própria página, por exemplo o clique no logotipo do rodapé. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fundo com um gradiente sutil, do creme claro ao creme mais forte, para dar
+   um ar mais aconchegante do que uma cor lisa. */
+body {
+  background-image: linear-gradient(180deg, var(--creme-claro) 0%, #fffaf0 45%, var(--creme) 100%);
+  min-height: 100vh;
+}
+
+/* Títulos usam a fonte serifada da marca. O Bootstrap já define o peso e a
+   cor (--bs-heading-color), então só precisamos trocar a fonte aqui. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fonte-titulos);
+}
+
+/* Destaca palavras em negrito com o verde-manjericão da marca. */
+strong {
+  color: var(--verde-manjericao);
+}
+
+/* Destaca palavras em itálico com o vinho da marca. */
+em {
+  color: var(--color-primary);
+  font-style: italic;
+}
+
+/* Pequeno texto em caixa alta usado como "olho" (eyebrow) acima de um
+   título, por exemplo "Cantina italiana artesanal" antes de um H1. */
+.texto-destaque-superior {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: var(--verde-manjericao);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------
+   NAVBAR (MENU SUPERIOR)
+   O HTML usa o componente "navbar" pronto do Bootstrap. Aqui só ajustamos
+   a marca (logotipo + nome) e o botão de destaque "Faça sua reserva".
+   ------------------------------------------------------------------- */
+
+.navbar {
+  background-color: var(--color-primary);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+/* Junta o logotipo e o nome da cantina dentro do link de marca do Bootstrap. */
+.navbar-brand {
+  gap: 0.65rem;
+}
+
+.marca-logo {
+  width: var(--tamanho-logo);
+  height: var(--tamanho-logo);
+  object-fit: contain;
+  border-radius: var(--bs-border-radius-lg);
+  background: var(--creme-claro);
+  padding: 4px;
+}
+
+.marca-texto {
+  font-family: var(--fonte-titulos);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.marca-detalhe {
+  font-family: var(--fonte-padrao);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--creme);
+}
+
+/* Marca com destaque em negrito o link da página em que o visitante está. */
+.navbar-nav .nav-link[aria-current="page"] {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: var(--color-secondary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* Botão de destaque "Faça sua reserva" dentro do menu, com o dourado da
+   marca chamando atenção sobre o fundo vinho da navbar. */
+.btn-cta-reserva {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-dark);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.btn-cta-reserva:hover,
+.btn-cta-reserva:focus {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: white;
+}
+
+/* Botão de logout do painel administrativo (usado só na área de cadastro). */
+.btn-cta-logout {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+  color: white;
+}
+
+.btn-cta-logout:hover,
+.btn-cta-logout:focus {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: white;
+}
+
+/* ---------------------------------------------------------------------
+   HERO (FAIXA DE ABERTURA DE CADA PÁGINA)
+   ------------------------------------------------------------------- */
+
+.pagina-hero {
+  background: linear-gradient(120deg, var(--creme) 0%, var(--creme-claro) 100%);
+  border-bottom: 1px solid rgba(139, 46, 31, 0.12);
+}
+
+.pagina-hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+/* Hero especial da página inicial, mais alto e com o logotipo grande. */
+.hero-inicio {
+  background: radial-gradient(circle at top left, rgba(200, 155, 60, 0.18), transparent 55%), linear-gradient(120deg, var(--creme) 0%, var(--creme-claro) 100%);
+  border-bottom: 1px solid rgba(139, 46, 31, 0.12);
+}
+
+.hero-inicio .logotipo-hero {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: var(--bs-border-radius-2xl);
+  background: var(--color-light);
+  box-shadow: var(--bs-box-shadow);
+  padding: 10px;
+}
+
+/* ---------------------------------------------------------------------
+   CARDS DE PRODUTO (destaques da home + cardápio completo)
+   ------------------------------------------------------------------- */
+
+.card-produto {
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-produto:hover,
+.card-produto:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--bs-box-shadow-lg);
+}
+
+.card-produto .produto-imagem-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  background: var(--creme-claro);
+  border-bottom: 1px solid var(--creme);
+}
+
+.card-produto .produto-imagem-area img {
+  max-height: 160px;
+  object-fit: contain;
+  padding: 12px;
+}
+
+/* "Balão" arredondado com o preço do produto. */
+.badge-preco {
+  background-color: var(--color-accent);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Badge com a quantidade de itens de cada categoria do cardápio. */
+.badge-categoria {
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+  font-size: 0.8rem;
+}
+
+/* ---------------------------------------------------------------------
+   IMAGEM TEMÁTICA (usada na página Nossa História)
+   ------------------------------------------------------------------- */
+
+.imagem-tematica {
+  border: 3px solid var(--color-secondary);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow);
+}
+
+/* ---------------------------------------------------------------------
+   FORMULÁRIOS (reserva e cadastro de produtos)
+   ------------------------------------------------------------------- */
+
+/* Card que envolve qualquer formulário do site, com uma faixa colorida no
+   topo para reforçar a identidade da marca. */
+.card-formulario .card-header {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ---------------------------------------------------------------------
+   RODAPÉ
+   ------------------------------------------------------------------- */
+
+footer {
+  background-color: var(--color-dark);
+  color: var(--creme-claro);
+}
+
+footer h2 {
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+}
+
+footer a {
+  color: var(--creme-claro);
+}
+
+footer a:hover,
+footer a:focus {
+  color: var(--color-secondary);
+}
+
+/* Caixa onde o Leaflet desenha o minimapa do rodapé. */
+.mapa-rodape {
+  width: 100%;
+  min-height: var(--altura-mapa-rodape);
+  border: 3px solid var(--color-secondary);
+  border-radius: var(--bs-border-radius-lg);
+  background: var(--creme);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Links exibidos dentro do balão (popup) do marcador do Leaflet. */
+.link-popup-mapa {
+  color: var(--color-primary);
+  font-weight: bold;
+}

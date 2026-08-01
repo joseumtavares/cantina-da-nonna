@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <!-- A tag <head> reúne informações da página que não aparecem diretamente no conteúdo (título da aba, ícones, arquivos de estilo). -->
+  <head>
+    <!-- <meta charset> define a codificação de caracteres, permitindo acentos e caracteres especiais do português. -->
+    <meta charset="UTF-8">
+
+    <!-- <meta name="viewport"> faz a página se adaptar corretamente a celulares, tablets e computadores. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Ícone exibido na aba do navegador. -->
+    <link rel="icon" type="image/png" href="../favicon/favicon.png">
+
+    <!-- Bootstrap CSS: biblioteca externa com o grid, os componentes prontos
+         (navbar, cards, botões, formulários) e os utilitários responsivos
+         que agora sustentam todo o layout do site. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Fontes do Google Fonts: uma serifada para títulos (Playfair Display)
+         e uma sem serifa para textos (Mulish), substituindo a fonte antiga. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Variables CSS: cofre com as cores e fontes da marca, e também onde
+         essas cores são ensinadas ao Bootstrap (variáveis --bs-...). -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <!-- Theme CSS: apenas os toques exclusivos da identidade da Cantina que
+         o Bootstrap não tem pronto (navbar de marca, cards de produto,
+         mapa do rodapé, etc). -->
+    <link rel="stylesheet" href="../css/theme.css">
+    <!-- CSS da biblioteca Leaflet, usada para exibir o mapa interativo do rodapé. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- <title> define o texto exibido na aba do navegador. -->
+    <title>Cardápio - Cantina da Nonna</title>
+  </head>
+
+  <body>
+    <!--
+      CABEÇALHO E MENU (NAVBAR) DO SITE
+      Este bloco se repete em todas as páginas. Usa o componente "navbar"
+      pronto do Bootstrap: ele já resolve sozinho o menu recolhido (hambúrguer)
+      no celular através do atributo data-bs-toggle="collapse" no botão abaixo.
+      No futuro, quando o back-end existir, este trecho pode virar um
+      "component"/"partial" reaproveitável (ex.: um include de template),
+      em vez de ficar copiado manualmente em cada página HTML.
+    -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow" data-bs-theme="dark">
+        <!-- .container centraliza o conteúdo da navbar e aplica a mesma
+             largura máxima usada no restante do site. -->
+        <div class="container">
+          <!-- navbar-brand: link especial do Bootstrap para a marca do site (logotipo + nome). -->
+          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img class="marca-logo" src="../images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
+            <span class="marca-texto">
+              <span class="marca-detalhe d-block">Cantina italiana artesanal</span>
+              Cantina da Nonna
+            </span>
+          </a>
+
+          <!-- Botão do menu hambúrguer: o próprio Bootstrap mostra e esconde o
+               menu abaixo dele quando a tela é pequena (não precisamos mais de
+               JavaScript próprio para isso). -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Área do menu que recolhe no celular e aparece inteira no computador. -->
+          <div class="collapse navbar-collapse" id="menuPrincipal">
+            <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-2 py-2 py-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Início</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="nossa-historia.html">Nossa História</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="cardapio.html" aria-current="page">Cardápio</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="btn btn-cta-reserva" href="reserva.html">Faça sua reserva</a>
+          </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- <main> define o conteúdo principal da página. -->
+    <main>
+      <!-- HERO da página de cardápio. -->
+      <section class="pagina-hero py-5 mb-5">
+        <div class="container text-center text-lg-start">
+          <p class="texto-destaque-superior">Cardápio artesanal</p>
+          <h1 class="mb-3">Cardápio da Cantina da Nonna</h1>
+          <p class="lead mb-0">
+            Conheça nossas massas, pizzas, sobremesas e bebidas preparadas com carinho.
+          </p>
+        </div>
+      </section>
+
+      <!-- Container Bootstrap: centraliza o conteúdo e aplica espaçamento lateral responsivo. -->
+      <div class="container pb-5">
+        <!-- Seção de uma categoria do cardápio (ex.: Entradas, Massas...).
+             No futuro, com back-end, este bloco poderia ser gerado automaticamente
+             a partir de uma consulta como:
+             SELECT * FROM produtos WHERE categoria = 'entradas' AND ativo = true -->
+        <section class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0">Entradas</h2>
+            <span class="badge rounded-pill badge-categoria">3 itens</span>
+          </div>
+
+          <!-- Row Bootstrap: 1 coluna no celular, 2 no tablet e 3 em telas grandes. -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/entradas/bruschetta-da-nonna.png" alt="Imagem da bruschetta da Nonna" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Bruschetta da Nonna</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 22,00</span>
+                  </div>
+                  <p class="card-text mb-0">Pão italiano com tomate, manjericão e azeite</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/entradas/salada-caprese.png" alt="Imagem da salada caprese" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Salada Caprese</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 28,00</span>
+                  </div>
+                  <p class="card-text mb-0">Tomate, mussarela de búfala, manjericão e molho pesto</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/entradas/pao-de-alho-artesanal.png" alt="Imagem do pão de alho artesanal" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Pão de Alho Artesanal</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 18,00</span>
+                  </div>
+                  <p class="card-text mb-0">Pão assado com creme de alho e queijo gratinado</p>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Seção de uma categoria do cardápio (ex.: Entradas, Massas...).
+             No futuro, com back-end, este bloco poderia ser gerado automaticamente
+             a partir de uma consulta como:
+             SELECT * FROM produtos WHERE categoria = 'massas' AND ativo = true -->
+        <section class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0">Massas</h2>
+            <span class="badge rounded-pill badge-categoria">4 itens</span>
+          </div>
+
+          <!-- Row Bootstrap: 1 coluna no celular, 2 no tablet e 3 em telas grandes. -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/massas/espaguete-a-bolonhesa.png" alt="Imagem do espaguete à bolonhesa" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Espaguete à Bolonhesa</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 39,00</span>
+                  </div>
+                  <p class="card-text mb-0">Massa fresca com molho de tomate e carne moída</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/massas/fettuccine-alfredo.png" alt="Imagem do fettuccine alfredo" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Fettuccine Alfredo</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 42,00</span>
+                  </div>
+                  <p class="card-text mb-0">Massa fresca com molho branco cremoso e parmesão</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/massas/lasanha-da-casa.png" alt="Imagem da lasanha da casa" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Lasanha da Casa</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 45,00</span>
+                  </div>
+                  <p class="card-text mb-0">Lasanha artesanal com molho bolonhesa, presunto e queijo</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/massas/nhoque-ao-sugo.png" alt="Imagem do nhoque ao sugo" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Nhoque ao Sugo</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 38,00</span>
+                  </div>
+                  <p class="card-text mb-0">Nhoque de batata com molho de tomate caseiro</p>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Seção de uma categoria do cardápio (ex.: Entradas, Massas...).
+             No futuro, com back-end, este bloco poderia ser gerado automaticamente
+             a partir de uma consulta como:
+             SELECT * FROM produtos WHERE categoria = 'pizzas' AND ativo = true -->
+        <section class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0">Pizzas</h2>
+            <span class="badge rounded-pill badge-categoria">4 itens</span>
+          </div>
+
+          <!-- Row Bootstrap: 1 coluna no celular, 2 no tablet e 3 em telas grandes. -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/pizzas/margherita.png" alt="Imagem da pizza margherita" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Margherita</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 52,00</span>
+                  </div>
+                  <p class="card-text mb-0">Molho de tomate, mussarela, tomate e manjericão</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/pizzas/calabresa.png" alt="Imagem da pizza de calabresa" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Calabresa</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 55,00</span>
+                  </div>
+                  <p class="card-text mb-0">Molho de tomate, mussarela, calabresa e cebola</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/pizzas/quatro-queijos.png" alt="Imagem da pizza quatro queijos" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Quatro Queijos</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 59,00</span>
+                  </div>
+                  <p class="card-text mb-0">Mussarela, provolone, parmesão e gorgonzola</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/pizzas/portuguesa.png" alt="Imagem da pizza portuguesa" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Portuguesa</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 58,00</span>
+                  </div>
+                  <p class="card-text mb-0">Mussarela, presunto, ovo, cebola, ervilha e azeitona</p>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Seção de uma categoria do cardápio (ex.: Entradas, Massas...).
+             No futuro, com back-end, este bloco poderia ser gerado automaticamente
+             a partir de uma consulta como:
+             SELECT * FROM produtos WHERE categoria = 'sobremessas' AND ativo = true -->
+        <section class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0">Sobremesas</h2>
+            <span class="badge rounded-pill badge-categoria">4 itens</span>
+          </div>
+
+          <!-- Row Bootstrap: 1 coluna no celular, 2 no tablet e 3 em telas grandes. -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/sobremessas/tiramisu.png" alt="Imagem do tiramisu" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Tiramisù</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 24,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/sobremessas/panna-cotta.png" alt="Imagem da panna cotta" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Panna Cotta com calda de frutas vermelhas</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 22,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/sobremessas/petit-gateau.png" alt="Imagem do petit gateau" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Petit Gateau com sorvete</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 26,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/sobremessas/gelato-italiano.png" alt="Imagem do gelato italiano" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Gelato Italiano</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 18,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Seção de uma categoria do cardápio (ex.: Entradas, Massas...).
+             No futuro, com back-end, este bloco poderia ser gerado automaticamente
+             a partir de uma consulta como:
+             SELECT * FROM produtos WHERE categoria = 'bebidas' AND ativo = true -->
+        <section class="mb-5">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="mb-0">Bebidas</h2>
+            <span class="badge rounded-pill badge-categoria">4 itens</span>
+          </div>
+
+          <!-- Row Bootstrap: 1 coluna no celular, 2 no tablet e 3 em telas grandes. -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/bebidas/agua-da-pedra.png" alt="Imagem da água da pedra" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Água mineral</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 6,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/bebidas/coca-cola-lata.png" alt="Imagem da Coca-Cola lata" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Refrigerante lata</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 8,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/bebidas/suco-natural.png" alt="Imagem do suco natural" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Suco natural</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 12,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <!-- Coluna Bootstrap: 12/12 no celular, 6/12 no tablet e 4/12 (um terço) em telas grandes. -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <!-- Card Bootstrap de um produto do cardápio. A classe "card-produto"
+                   (definida em theme.css) cuida do efeito ao passar o mouse. -->
+              <article class="card card-produto h-100">
+                <div class="produto-imagem-area">
+                  <img src="../images/bebidas/cafe-espresso.png" alt="Imagem do café espresso" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <h3 class="card-title h5 mb-0">Café espresso</h3>
+                    <span class="badge rounded-pill badge-preco">R$ 7,00</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <!-- <footer> define o rodapé, repetido em todas as páginas do site. -->
+    <footer class="pt-5 pb-4 mt-5">
+      <div class="container">
+        <!-- Row Bootstrap: contatos em uma coluna e localização/mapa em outra,
+             empilhando automaticamente no celular. -->
+        <div class="row g-4">
+          <!-- Coluna de contatos. -->
+          <div class="col-12 col-lg-4">
+            <h2>Contatos</h2>
+
+            <!-- Link de e-mail para reservas. -->
+            <p>
+              Email: <a href="mailto:resevras@cantinadanonna.com.br">resevras@cantinadanonna.com.br</a>
+            </p>
+
+            <!-- Perfil do Instagram informado para contato social. -->
+            <p>
+              Instagram: @cantina da nonna
+            </p>
+
+            <!-- Link do WhatsApp usando wa.me com o telefone da cantina. -->
+            <p class="d-flex align-items-center gap-2">
+              <a class="d-inline-flex align-items-center gap-2 text-decoration-none" href="https://wa.me/5548996249817" target="_blank" rel="noopener noreferrer">
+                <img width="24" height="24" src="../images/whatsapp.png" alt="Logotipo do WhatsApp">
+                WhatsApp: (48) 99624-9817
+              </a>
+            </p>
+          </div>
+
+          <!-- Coluna de localização, com sub-row para texto do endereço + mapa. -->
+          <div class="col-12 col-lg-8">
+            <div class="row g-4">
+              <!-- Bloco textual do endereço. -->
+              <div class="col-12 col-md-5">
+                <h2>Como chegar</h2>
+
+                <p>
+                  Rua Renata Costa Nº 945 - Centro
+                  <br> Balneário Arroio do Silva - SC
+                </p>
+              </div>
+
+              <!-- Div onde o Leaflet monta o mapa interativo. -->
+              <div class="col-12 col-md-7">
+                <div id="mapa-rodape" class="mapa-rodape" title="Clique no mapa para abrir a rota no Google Maps"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha divisória sutil antes dos direitos autorais. -->
+        <hr class="border-secondary-subtle my-4">
+
+        <!-- Texto de direitos autorais. -->
+        <p class="text-center small mb-0">&copy; 2026 Cantina da Nonna. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- Biblioteca JavaScript do Leaflet, carregada antes do nosso arquivo de mapa. -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Bootstrap JS Bundle: liga o funcionamento da navbar (menu recolhido),
+         além de outros componentes interativos do Bootstrap. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- Arquivo JavaScript local responsável por montar o minimapa do rodapé. -->
+    <script src="../js/mapa.js"></script>
+
+    <!-- Arquivo JavaScript local com pequenos ajustes do menu e o ponto de
+         partida para futuras integrações com o back-end. -->
+    <script src="../js/site.js"></script>
+  </body>
+</html>
