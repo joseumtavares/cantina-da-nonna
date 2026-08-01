@@ -31,6 +31,54 @@ nonna/
 `-- README.md
 ```
 
+## Mapa MVC do back-end
+
+Toda nova funcionalidade do back-end deve seguir a organizacao MVC abaixo. Esse padrao ajuda a manter o codigo separado por responsabilidade, facilitando manutencao, testes e evolucao do projeto.
+
+```text
+nona-back/
+`-- src/main/java/br/com/nona_back/
+    |-- controllers/
+    |   |-- HealthCheckController.java
+    |   `-- ProdutoController.java
+    |
+    |-- model/
+    |   `-- Produto.java
+    |
+    |-- service/
+    |   `-- ProdutoService.java
+    |
+    |-- repository/
+    |   `-- ProdutoRepository.java
+    |
+    `-- NonaBackApplication.java
+```
+
+Fluxo recomendado para novas telas, rotas ou entidades:
+
+```text
+Controller -> Service -> Repository -> Banco de dados
+     ^                         |
+     |                         v
+   HTTP                     Model
+```
+
+Responsabilidade de cada camada:
+
+- `controllers`: recebem as requisicoes HTTP e devolvem respostas para o front-end.
+- `service`: concentram as regras de negocio e fazem a ponte entre controller e repository.
+- `repository`: acessam o banco de dados e executam consultas SQL.
+- `model`: representam os dados usados pela aplicacao.
+
+Exemplo para uma futura entidade `Reserva`:
+
+```text
+controllers/ReservaController.java
+service/ReservaService.java
+repository/ReservaRepository.java
+model/Reserva.java
+```
+
 ## Front-end
 
 O front-end esta em `nona-front/public` e foi construido com HTML, CSS, JavaScript e Bootstrap.
@@ -142,6 +190,8 @@ Para manter o projeto funcionando no Visual Studio Code e no IntelliJ IDEA:
 - Configurar variaveis de producao para Vercel e API em ambiente publicado.
 - Criar pipeline de CI/CD para testes e deploy automatico.
 
-## Autor
+## Creditos
 
-Criado por Jose Tavares como projeto de estudo full stack.
+Projeto desenvolvido por Jose Tavares durante os estudos de desenvolvimento full stack.
+
+Creditos ao professor Gabriel Carvalho: https://github.com/GabrielBdeC
