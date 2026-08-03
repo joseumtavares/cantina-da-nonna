@@ -12,6 +12,18 @@ Para continuar o projeto com outra LLM ou com outro programador, consulte:
 DOCUMENTACAO_TECNICA.md
 ```
 
+Padrao de desenvolvimento, comentarios e documentacao:
+
+```text
+PADRAO_DESENVOLVIMENTO.md
+```
+
+Instrucoes curtas para LLMs/agentes:
+
+```text
+AGENTS.md
+```
+
 ## Estrutura do repositorio
 
 ```text
