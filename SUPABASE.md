@@ -38,7 +38,7 @@ No painel do Supabase:
 Exemplo didatico de URL JDBC:
 
 ```text
-jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
+jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
 ```
 
 Exemplo didatico de usuario do pooler:
@@ -89,8 +89,26 @@ postgresql://postgres.[PROJECT_REF]:[SUA-SENHA]@aws-[REGIAO].pooler.supabase.com
 No Spring Boot essa URL vira:
 
 ```properties
-SUPABASE_DB_URL=jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
-SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
+SUPABASE_DB_URL=jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.bvkxyncjqoabipnlhtql
+```
+
+
+## 3.2. Dados do projeto atual
+
+O projeto Supabase atual usa o `Session pooler` abaixo. Estes dados nao sao secretos; a senha continua fora do Git e deve ficar apenas no `.env` local ou nas variaveis do ambiente de deploy.
+
+```properties
+SUPABASE_DB_URL=jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.bvkxyncjqoabipnlhtql
+SUPABASE_DB_PASSWORD=SUA_SENHA_APENAS_NO_ENV
+SUPABASE_SQL_INIT_MODE=always
+```
+
+Quando o banco ja estiver criado e sem necessidade de executar scripts automaticamente, altere no ambiente de publicacao:
+
+```properties
+SUPABASE_SQL_INIT_MODE=never
 ```
 
 ## 4. Como configurar no arquivo .env local
@@ -111,8 +129,8 @@ Depois ajuste para Supabase:
 
 ```properties
 spring.profiles.active=supabase
-SUPABASE_DB_URL=jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
-SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
+SUPABASE_DB_URL=jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.bvkxyncjqoabipnlhtql
 SUPABASE_DB_PASSWORD=SUA_SENHA_DO_BANCO
 SUPABASE_SQL_INIT_MODE=always
 ```
@@ -131,8 +149,8 @@ Na configuracao de execucao da classe `NonaBackApplication`, adicione as variave
 
 ```text
 SPRING_PROFILES_ACTIVE=supabase
-SUPABASE_DB_URL=jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
-SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
+SUPABASE_DB_URL=jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.bvkxyncjqoabipnlhtql
 SUPABASE_DB_PASSWORD=SUA_SENHA_DO_BANCO
 SUPABASE_SQL_INIT_MODE=always
 ```
@@ -141,7 +159,7 @@ SUPABASE_SQL_INIT_MODE=always
 
 ```powershell
 $env:SPRING_PROFILES_ACTIVE="supabase"
-$env:SUPABASE_DB_URL="jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require"
+$env:SUPABASE_DB_URL="jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require"
 $env:SUPABASE_DB_USERNAME="postgres.[PROJECT_REF]"
 $env:SUPABASE_DB_PASSWORD="SUA_SENHA_DO_BANCO"
 $env:SUPABASE_SQL_INIT_MODE="always"

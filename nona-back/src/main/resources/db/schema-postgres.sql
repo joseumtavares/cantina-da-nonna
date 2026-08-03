@@ -10,7 +10,7 @@
 
 -- Extensao usada para gerar UUIDs no PostgreSQL.
 -- Equivalente ao padrao MySQL DEFAULT (UUID()) usado no projeto local.
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto^^^
 
 -- ==========================================================
 -- TABELA: categorias
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS public.categorias (
 
   -- Evita duas categorias com o mesmo identificador textual.
   CONSTRAINT uk_categorias_slug UNIQUE (slug)
-);
+)^^^
 
 -- ==========================================================
 -- TABELA: produtos
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS public.produtos (
 
   -- Evita valores negativos no cardapio.
   CONSTRAINT chk_produtos_valor CHECK (valor >= 0)
-);
+)^^^
 
 -- ==========================================================
 -- TABELA: reservas
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS public.reservas (
 
   -- Mantem as mesmas opcoes do select da pagina reserva.html.
   CONSTRAINT chk_reservas_ambiente CHECK (ambiente IN ('salao', 'varanda', 'familia', 'sem-preferencia'))
-);
+)^^^
 
 -- ==========================================================
 -- TABELA: usuarios_administrativos
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS public.usuarios_administrativos (
 
   -- Evita dois administradores com o mesmo e-mail.
   CONSTRAINT uk_usuarios_administrativos_email UNIQUE (email)
-);
+)^^^
 
 -- ==========================================================
 -- ATUALIZACAO AUTOMATICA DO CAMPO atualizado_em
@@ -190,28 +190,28 @@ BEGIN
   NEW.atualizado_em = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql^^^
 
-DROP TRIGGER IF EXISTS trg_categorias_atualizado_em ON public.categorias;
+DROP TRIGGER IF EXISTS trg_categorias_atualizado_em ON public.categorias^^^
 CREATE TRIGGER trg_categorias_atualizado_em
 BEFORE UPDATE ON public.categorias
 FOR EACH ROW
-EXECUTE FUNCTION public.atualizar_coluna_atualizado_em();
+EXECUTE FUNCTION public.atualizar_coluna_atualizado_em()^^^
 
-DROP TRIGGER IF EXISTS trg_produtos_atualizado_em ON public.produtos;
+DROP TRIGGER IF EXISTS trg_produtos_atualizado_em ON public.produtos^^^
 CREATE TRIGGER trg_produtos_atualizado_em
 BEFORE UPDATE ON public.produtos
 FOR EACH ROW
-EXECUTE FUNCTION public.atualizar_coluna_atualizado_em();
+EXECUTE FUNCTION public.atualizar_coluna_atualizado_em()^^^
 
-DROP TRIGGER IF EXISTS trg_reservas_atualizado_em ON public.reservas;
+DROP TRIGGER IF EXISTS trg_reservas_atualizado_em ON public.reservas^^^
 CREATE TRIGGER trg_reservas_atualizado_em
 BEFORE UPDATE ON public.reservas
 FOR EACH ROW
-EXECUTE FUNCTION public.atualizar_coluna_atualizado_em();
+EXECUTE FUNCTION public.atualizar_coluna_atualizado_em()^^^
 
-DROP TRIGGER IF EXISTS trg_usuarios_administrativos_atualizado_em ON public.usuarios_administrativos;
+DROP TRIGGER IF EXISTS trg_usuarios_administrativos_atualizado_em ON public.usuarios_administrativos^^^
 CREATE TRIGGER trg_usuarios_administrativos_atualizado_em
 BEFORE UPDATE ON public.usuarios_administrativos
 FOR EACH ROW
-EXECUTE FUNCTION public.atualizar_coluna_atualizado_em();
+EXECUTE FUNCTION public.atualizar_coluna_atualizado_em()^^^
