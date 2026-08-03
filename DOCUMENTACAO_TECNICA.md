@@ -527,9 +527,9 @@ Use `.env.example` para mostrar quais variáveis existem. Use `.env` local para 
 
 ## 16. Créditos e referência de aula
 
-Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
+Projeto em desenvolvimento por José Tavares durante os estudos de desenvolvimento web com IA.
 
-Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC).
+Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC) pela referência e acompanhamento nas aulas.
 
 Referência local da aula usada para alinhar parte do back-end:
 

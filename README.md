@@ -292,8 +292,8 @@ Arquivos de apoio:
 
 ## Créditos
 
-Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
+Projeto em desenvolvimento por José Tavares durante os estudos de desenvolvimento web com IA.
 
-Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC), referência durante as aulas.
+Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC) pela referência e acompanhamento nas aulas.
 
 [Voltar ao topo](#cantina-da-nonna)
