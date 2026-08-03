@@ -24,6 +24,12 @@ Instrucoes curtas para LLMs/agentes:
 AGENTS.md
 ```
 
+Configuracao do banco no Supabase:
+
+```text
+SUPABASE.md
+```
+
 ## Estrutura do repositorio
 
 ```text
@@ -134,13 +140,20 @@ Camadas principais:
 
 ## Banco de dados
 
-Banco usado no desenvolvimento:
+O projeto possui dois perfis de banco:
+
+```text
+local     -> XAMPP / MySQL ou MariaDB
+supabase  -> Supabase / PostgreSQL
+```
+
+Banco local usado no desenvolvimento:
 
 ```text
 nona-db
 ```
 
-Configuracao padrao:
+Configuracao local padrao:
 
 ```text
 host: 127.0.0.1
@@ -149,14 +162,30 @@ usuario: root
 senha: vazia
 ```
 
-Os scripts automaticos ficam em:
+Arquivos de configuracao:
+
+```text
+nona-back/src/main/resources/application-local.properties
+nona-back/src/main/resources/application-supabase.properties
+```
+
+Scripts automaticos do perfil local MySQL/MariaDB:
 
 ```text
 nona-back/src/main/resources/db/schema.sql
 nona-back/src/main/resources/db/data.sql
 ```
 
+Scripts automaticos do perfil Supabase/PostgreSQL:
+
+```text
+nona-back/src/main/resources/db/schema-postgres.sql
+nona-back/src/main/resources/db/data-postgres.sql
+```
+
 A pasta `nona-back/migration` foi mantida como referencia didatica da aula, enquanto os scripts em `resources/db` sao usados automaticamente pelo Spring Boot.
+
+Para configurar o banco do Supabase, consulte `SUPABASE.md`.
 
 ## Como rodar o back-end
 
@@ -205,7 +234,7 @@ Para manter o projeto funcionando no Visual Studio Code e no IntelliJ IDEA:
 - Salvar reservas feitas pelo formulario.
 - Criar dashboard administrativo.
 - Adicionar autenticacao para area administrativa.
-- Integrar Supabase para autenticacao, storage de imagens e possivel banco em nuvem.
+- Evoluir a integracao com Supabase para autenticacao e storage de imagens.
 - Publicar o front-end na Vercel.
 - Configurar variaveis de producao para Vercel e API em ambiente publicado.
 - Criar pipeline de CI/CD para testes e deploy automatico.

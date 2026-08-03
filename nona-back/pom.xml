@@ -55,6 +55,13 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Driver PostgreSQL: necessario para conectar o Spring Boot ao banco do Supabase.
+		     O Supabase usa PostgreSQL, por isso mantemos este driver ao lado do MySQL. -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Melhoria criada por Jose Tavares:
 		     Actuator ajuda a verificar a saude da aplicacao e do banco em ambiente de estudo. -->

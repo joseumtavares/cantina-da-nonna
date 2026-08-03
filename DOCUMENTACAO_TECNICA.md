@@ -1,4 +1,4 @@
-﻿# Documentacao Tecnica - Cantina da Nonna
+# Documentacao Tecnica - Cantina da Nonna
 
 Este arquivo foi criado para orientar outra LLM ou um programador pleno humano a continuar o projeto sem perder o contexto, os padroes ja definidos e as decisoes tomadas ate agora.
 
@@ -228,13 +228,24 @@ usuario: root
 senha: vazia
 ```
 
-Arquivo de configuracao:
+Arquivos de configuracao:
 
 ```text
 nona-back/src/main/resources/application.properties
+nona-back/src/main/resources/application-local.properties
+nona-back/src/main/resources/application-supabase.properties
 ```
 
-Configuracao atual usa variaveis de ambiente com valores padrao:
+Perfis disponiveis:
+
+```text
+local     -> XAMPP / MySQL ou MariaDB
+supabase  -> Supabase / PostgreSQL
+```
+
+O perfil `local` continua sendo o padrao para estudo no computador. O perfil `supabase` deve ser ativado com variaveis de ambiente quando quisermos usar o banco em nuvem.
+
+Configuracao local usa variaveis de ambiente com valores padrao:
 
 ```properties
 spring.datasource.url=${DB_URL:jdbc:mysql://127.0.0.1:3306/nona-db?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true}
@@ -242,17 +253,47 @@ spring.datasource.username=${DB_USERNAME:root}
 spring.datasource.password=${DB_PASSWORD:}
 ```
 
-Regra para novas tabelas:
+Configuracao Supabase usa variaveis obrigatorias, sem senha no Git:
 
-```sql
-id VARCHAR(36) PRIMARY KEY DEFAULT (UUID())
+```properties
+SPRING_PROFILES_ACTIVE=supabase
+SUPABASE_DB_URL=jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
+SUPABASE_DB_PASSWORD=SUA_SENHA_DO_BANCO
 ```
 
-Scripts automaticos:
+Para detalhes, consulte:
+
+```text
+SUPABASE.md
+```
+
+Regra para novas tabelas:
+
+No perfil local MySQL/MariaDB, manter o padrao da aula:
+
+```sql
+id CHAR(36) PRIMARY KEY DEFAULT (UUID())
+```
+
+No perfil Supabase/PostgreSQL, usar o equivalente correto para PostgreSQL:
+
+```sql
+id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+```
+
+Scripts automaticos do perfil local MySQL/MariaDB:
 
 ```text
 nona-back/src/main/resources/db/schema.sql
 nona-back/src/main/resources/db/data.sql
+```
+
+Scripts automaticos do perfil Supabase/PostgreSQL:
+
+```text
+nona-back/src/main/resources/db/schema-postgres.sql
+nona-back/src/main/resources/db/data-postgres.sql
 ```
 
 Pasta de referencia didatica:
@@ -445,7 +486,7 @@ C:\Users\Jose Tavares\Desktop\dev\SENAC_back
 - Criar dashboard administrativo.
 - Implementar login/autenticacao para area administrativa.
 - Fazer upload de imagens dos produtos.
-- Integrar Supabase para autenticacao, storage de imagens e possivel banco em nuvem.
+- Evoluir a integracao com Supabase para autenticacao e storage de imagens.
 - Publicar o front-end na Vercel.
 - Configurar ambiente de producao com variaveis seguras.
 - Criar pipeline de testes e deploy.
