@@ -12,8 +12,16 @@
 !**/.env.example
 
 # IDEs
-.idea/
-**/.idea/
+# A pasta .idea guarda configuracoes pessoais do IntelliJ; por isso ignoramos quase tudo.
+.idea/*
+**/.idea/*
+
+# Mantemos somente a lista de plugins obrigatorios do projeto.
+!.idea/
+!**/.idea/
+!.idea/externalDependencies.xml
+!**/.idea/externalDependencies.xml
+
 *.iml
 *.iws
 *.ipr

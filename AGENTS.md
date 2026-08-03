@@ -7,6 +7,7 @@ Este arquivo é curto de propósito. Ele serve como primeiro lembrete antes de m
 
 - [Visão geral do projeto](README.md)
 - [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Configuração do ambiente](CONFIGURACAO_AMBIENTE.md)
 - [Documentação técnica](DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](SUPABASE.md)
 - [Notas rápidas de continuidade](AGENTS.md)
@@ -16,8 +17,9 @@ Antes de alterar código ou configuração, leia estes arquivos na raiz do repos
 
 1. [README principal](README.md)
 2. [PADRAO_DESENVOLVIMENTO.md](PADRAO_DESENVOLVIMENTO.md)
-3. [DOCUMENTACAO_TECNICA.md](DOCUMENTACAO_TECNICA.md)
-4. [SUPABASE.md](SUPABASE.md), quando a mudança envolver banco em nuvem
+3. [CONFIGURACAO_AMBIENTE.md](CONFIGURACAO_AMBIENTE.md), quando a mudança envolver instalação, IDE, XAMPP ou Java local
+4. [DOCUMENTACAO_TECNICA.md](DOCUMENTACAO_TECNICA.md)
+5. [SUPABASE.md](SUPABASE.md), quando a mudança envolver banco em nuvem
 
 Pontos que não devem ser esquecidos:
 

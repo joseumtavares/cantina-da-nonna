@@ -1,5 +1,7 @@
 {
     // Extensoes recomendadas para desenvolver o backend Java/Spring no VS Code.
+    // Importante: estas extensoes nao instalam o JDK.
+    // Para rodar o projeto no VS Code, instale o Amazon Corretto 25 localmente e confira com java --version.
     // Elas ajudam a manter compatibilidade com o projeto Maven criado no IntelliJ IDEA.
     "recommendations": [
         // Pacote principal para Java no VS Code.

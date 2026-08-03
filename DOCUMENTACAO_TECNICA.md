@@ -7,6 +7,7 @@ Este documento reúne o contexto técnico da Cantina da Nonna para quem precisar
 
 - [Visão geral do projeto](README.md)
 - [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Configuração do ambiente](CONFIGURACAO_AMBIENTE.md)
 - [Documentação técnica](DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](SUPABASE.md)
 - [Notas rápidas de continuidade](AGENTS.md)
@@ -122,6 +123,7 @@ nonna/
 |   `-- src/test/java/br/com/nona_back/
 |
 |-- AGENTS.md
+|-- CONFIGURACAO_AMBIENTE.md
 |-- DOCUMENTACAO_TECNICA.md
 |-- PADRAO_DESENVOLVIMENTO.md
 |-- SUPABASE.md
@@ -421,6 +423,8 @@ Bootstrap está sendo usado para manter:
 - botões consistentes.
 
 ## 11. Como rodar
+
+Para preparar Java, XAMPP, IntelliJ IDEA e Visual Studio Code desde o zero, consulte [CONFIGURACAO_AMBIENTE.md](CONFIGURACAO_AMBIENTE.md).
 
 Pelo terminal:
 

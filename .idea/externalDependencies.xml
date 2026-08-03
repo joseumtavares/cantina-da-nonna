@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <!-- Criado por Jose Tavares para registrar os plugins obrigatorios do projeto Cantina da Nonna. -->
+  <!-- Este arquivo e seguro para versionar: ele nao guarda senhas, contas, atalhos pessoais ou historico da IDE. -->
+  <component name="ExternalDependencies">
+    <!-- Java e necessario para compilar e executar o back-end Spring Boot com Amazon Corretto 25. -->
+    <plugin id="com.intellij.java" />
+
+    <!-- Maven importa o pom.xml do nona-back e executa builds, testes e comandos pela IDE. -->
+    <plugin id="org.jetbrains.idea.maven" />
+  </component>
+</project>

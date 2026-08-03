@@ -9,6 +9,7 @@ O projeto está sendo desenvolvido por José Tavares durante os estudos de desen
 
 - [Visão geral do projeto](README.md)
 - [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Configuração do ambiente](CONFIGURACAO_AMBIENTE.md)
 - [Documentação técnica](DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](SUPABASE.md)
 - [Notas rápidas de continuidade](AGENTS.md)
@@ -113,6 +114,7 @@ nonna/
 |   `-- src/test/
 |
 |-- AGENTS.md
+|-- CONFIGURACAO_AMBIENTE.md
 |-- DOCUMENTACAO_TECNICA.md
 |-- PADRAO_DESENVOLVIMENTO.md
 |-- SUPABASE.md
@@ -268,6 +270,7 @@ Para evitar diferença entre as IDEs:
 Arquivos de apoio:
 
 - [PADRAO_DESENVOLVIMENTO.md](PADRAO_DESENVOLVIMENTO.md): regras de organização, comentários, segurança e commits.
+- [CONFIGURACAO_AMBIENTE.md](CONFIGURACAO_AMBIENTE.md): passo a passo para XAMPP, IntelliJ IDEA, VS Code e Java local.
 - [DOCUMENTACAO_TECNICA.md](DOCUMENTACAO_TECNICA.md): contexto técnico para continuidade do projeto.
 - [SUPABASE.md](SUPABASE.md): configuração do banco no Supabase.
 - [AGENTS.md](AGENTS.md): notas curtas para continuidade do projeto.
