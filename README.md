@@ -1,100 +1,117 @@
 # Cantina da Nonna
 
-Projeto full stack de estudo criado por Jose Tavares, com front-end institucional/cardapio e back-end Java Spring Boot integrado ao banco MySQL/MariaDB do XAMPP.
+A Cantina da Nonna é um projeto full stack de estudo inspirado em uma cantina italiana familiar. A proposta é construir, aos poucos, um site completo com página institucional, cardápio, reservas, área administrativa e uma API em Java com Spring Boot.
 
-A ideia do projeto e evoluir passo a passo, mantendo o codigo didatico, comentado e compativel com Visual Studio Code e IntelliJ IDEA.
+O projeto está sendo desenvolvido por José Tavares durante os estudos de desenvolvimento web. A ideia é manter tudo organizado, fácil de entender e compatível com Visual Studio Code e IntelliJ IDEA, sem esconder os passos importantes do aprendizado.
 
-## Documentacao tecnica
+## O que já existe
 
-Para continuar o projeto com outra LLM ou com outro programador, consulte:
+O repositório está dividido em duas partes principais:
 
-```text
-DOCUMENTACAO_TECNICA.md
-```
+- `nona-front`: front-end estático feito com HTML, CSS, JavaScript, Bootstrap e Leaflet.
+- `nona-back`: back-end Java com Spring Boot, Maven, JDBC e integração com banco de dados.
 
-Padrao de desenvolvimento, comentarios e documentacao:
+No front-end já existem páginas para:
 
-```text
-PADRAO_DESENVOLVIMENTO.md
-```
+- início do site;
+- nossa história;
+- cardápio completo;
+- formulário visual de reserva;
+- cadastro visual de produtos para a futura área administrativa.
 
-Instrucoes curtas para LLMs/agentes:
+No back-end já existem:
 
-```text
-AGENTS.md
-```
+- health check do servidor e do banco;
+- endpoint de produtos;
+- estrutura MVC organizada em controller, service, repository e model;
+- scripts de banco para MySQL/MariaDB local e PostgreSQL/Supabase;
+- testes automatizados com Maven.
 
-Configuracao do banco no Supabase:
+## Tecnologias usadas
 
-```text
-SUPABASE.md
-```
+- Java 25 Amazon Corretto
+- Spring Boot 4.1
+- Maven Wrapper
+- Spring WebMVC
+- Spring JDBC
+- MySQL/MariaDB com XAMPP
+- PostgreSQL no Supabase
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+- Leaflet e OpenStreetMap
+- Git e GitHub
 
-## Estrutura do repositorio
+## Estrutura do projeto
 
 ```text
 nonna/
 |-- nona-front/
+|   |-- README.md
 |   `-- public/
 |       |-- index.html
 |       |-- css/
+|       |   |-- theme.css
+|       |   `-- variables.css
 |       |-- js/
+|       |   |-- mapa.js
+|       |   `-- site.js
 |       |-- images/
+|       |-- favicon/
 |       `-- pages/
+|           |-- cadastro-produtos.html
+|           |-- cardapio.html
+|           |-- nossa-historia.html
+|           `-- reserva.html
 |
 |-- nona-back/
+|   |-- pom.xml
+|   |-- mvnw.cmd
+|   |-- .env.example
+|   |-- migration/
 |   |-- src/main/java/br/com/nona_back/
 |   |   |-- controllers/
 |   |   |-- model/
 |   |   |-- repository/
-|   |   `-- service/
-|   |-- src/main/resources/db/
-|   |-- src/test/
-|   |-- migration/
-|   `-- pom.xml
+|   |   |-- service/
+|   |   `-- NonaBackApplication.java
+|   |-- src/main/resources/
+|   |   |-- application.properties
+|   |   |-- application-local.properties
+|   |   |-- application-supabase.properties
+|   |   `-- db/
+|   |       |-- schema.sql
+|   |       |-- data.sql
+|   |       |-- schema-postgres.sql
+|   |       `-- data-postgres.sql
+|   `-- src/test/
 |
+|-- AGENTS.md
+|-- DOCUMENTACAO_TECNICA.md
+|-- PADRAO_DESENVOLVIMENTO.md
+|-- SUPABASE.md
 |-- .gitignore
 `-- README.md
 ```
 
-## Mapa MVC do back-end
+## Padrão MVC do back-end
 
-Toda nova funcionalidade do back-end deve seguir a organizacao MVC abaixo. Esse padrao ajuda a manter o codigo separado por responsabilidade, facilitando manutencao, testes e evolucao do projeto.
-
-```text
-nona-back/
-`-- src/main/java/br/com/nona_back/
-    |-- controllers/
-    |   |-- HealthCheckController.java
-    |   `-- ProdutoController.java
-    |
-    |-- model/
-    |   `-- Produto.java
-    |
-    |-- service/
-    |   `-- ProdutoService.java
-    |
-    |-- repository/
-    |   `-- ProdutoRepository.java
-    |
-    `-- NonaBackApplication.java
-```
-
-Fluxo recomendado para novas telas, rotas ou entidades:
+Toda nova funcionalidade do back-end deve seguir a mesma organização:
 
 ```text
 Controller -> Service -> Repository -> Banco de dados
      ^                         |
      |                         v
-   HTTP                     Model
+   HTTP                      Model
 ```
 
-Responsabilidade de cada camada:
+Na prática:
 
-- `controllers`: recebem as requisicoes HTTP e devolvem respostas para o front-end.
-- `service`: concentram as regras de negocio e fazem a ponte entre controller e repository.
-- `repository`: acessam o banco de dados e executam consultas SQL.
-- `model`: representam os dados usados pela aplicacao.
+- `controllers`: recebem as requisições HTTP e devolvem respostas.
+- `service`: guardam as regras de negócio e coordenam o fluxo.
+- `repository`: acessam o banco com SQL e `JdbcTemplate`.
+- `model`: representam os dados que circulam pela aplicação.
 
 Exemplo para uma futura entidade `Reserva`:
 
@@ -105,87 +122,49 @@ repository/ReservaRepository.java
 model/Reserva.java
 ```
 
-## Front-end
-
-O front-end esta em `nona-front/public` e foi construido com HTML, CSS, JavaScript e Bootstrap.
-
-Paginas principais:
-
-- `public/index.html`: pagina inicial.
-- `public/pages/cardapio.html`: cardapio completo.
-- `public/pages/nossa-historia.html`: historia da cantina.
-- `public/pages/reserva.html`: formulario visual de reserva.
-- `public/pages/cadastro-produtos.html`: tela administrativa visual para cadastro de produtos.
-
-Tambem ha integracao visual com mapa usando Leaflet/OpenStreetMap.
-
-## Back-end
-
-O back-end esta em `nona-back` e usa:
-
-- Java 25 Amazon Corretto.
-- Spring Boot 4.1.
-- Spring WebMVC.
-- Spring JDBC.
-- MySQL Connector/J.
-- Actuator para verificacao de saude.
-- Maven Wrapper para rodar igual no VS Code e no IntelliJ.
-
-Camadas principais:
-
-- `controllers`: recebe requisicoes HTTP.
-- `service`: concentra regras de negocio.
-- `repository`: conversa com o banco usando SQL e `JdbcTemplate`.
-- `model`: representa os dados trafegados pela aplicacao.
-
 ## Banco de dados
 
-O projeto possui dois perfis de banco:
+O projeto trabalha com dois perfis de banco:
 
 ```text
 local     -> XAMPP / MySQL ou MariaDB
 supabase  -> Supabase / PostgreSQL
 ```
 
-Banco local usado no desenvolvimento:
+O banco local usado durante os estudos se chama:
 
 ```text
 nona-db
 ```
 
-Configuracao local padrao:
+Configuração local padrão:
 
 ```text
 host: 127.0.0.1
 porta: 3306
-usuario: root
+usuário: root
 senha: vazia
 ```
 
-Arquivos de configuracao:
+Arquivos principais de configuração:
 
 ```text
 nona-back/src/main/resources/application-local.properties
 nona-back/src/main/resources/application-supabase.properties
 ```
 
-Scripts automaticos do perfil local MySQL/MariaDB:
+Scripts usados automaticamente pelo Spring Boot:
 
 ```text
 nona-back/src/main/resources/db/schema.sql
 nona-back/src/main/resources/db/data.sql
-```
-
-Scripts automaticos do perfil Supabase/PostgreSQL:
-
-```text
 nona-back/src/main/resources/db/schema-postgres.sql
 nona-back/src/main/resources/db/data-postgres.sql
 ```
 
-A pasta `nona-back/migration` foi mantida como referencia didatica da aula, enquanto os scripts em `resources/db` sao usados automaticamente pelo Spring Boot.
+A pasta `nona-back/migration` ficou no projeto como referência didática da aula. Os scripts realmente usados pela aplicação ficam em `src/main/resources/db`.
 
-Para configurar o banco do Supabase, consulte `SUPABASE.md`.
+Para detalhes da conexão com o Supabase, consulte `SUPABASE.md`.
 
 ## Como rodar o back-end
 
@@ -195,13 +174,19 @@ Entre na pasta do back-end:
 cd nona-back
 ```
 
-Rode a aplicacao com o Maven Wrapper:
+Rode a aplicação:
 
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-Endpoints uteis:
+Com o back-end rodando, o site pode ser aberto em:
+
+```text
+http://localhost:8080/
+```
+
+Endpoints úteis durante o desenvolvimento:
 
 ```text
 GET http://localhost:8080/health-check/liveness
@@ -212,35 +197,74 @@ GET http://localhost:8080/produtos
 
 ## Como testar
 
+Na pasta `nona-back`, rode:
+
 ```powershell
-cd nona-back
 .\mvnw.cmd test
 ```
 
-## Compatibilidade entre IDEs
+Para testar usando explicitamente o perfil Supabase:
 
-Para manter o projeto funcionando no Visual Studio Code e no IntelliJ IDEA:
+```powershell
+.\mvnw.cmd "-Dspring.profiles.active=supabase" test
+```
 
-- Use o Maven Wrapper do projeto (`mvnw.cmd`).
-- Mantenha as dependencias dentro do `pom.xml`.
-- Configure variaveis locais no ambiente ou em `.env`, sem enviar senhas reais para o Git.
-- Abra `nona-back` no IntelliJ quando quiser focar no Spring Boot.
-- Abra a pasta raiz `nonna` no VS Code quando quiser trabalhar com front e back juntos.
+Para testar usando o banco local:
 
-## Futuras melhorias
+```powershell
+.\mvnw.cmd "-Dspring.profiles.active=local" test
+```
+
+## Variáveis de ambiente
+
+O projeto pode carregar variáveis locais a partir de `.env`, mas arquivos com senha real não devem ir para o GitHub.
+
+Use este arquivo como base:
+
+```text
+nona-back/.env.example
+```
+
+O `.env.example` mostra os nomes das variáveis necessárias sem expor credenciais reais.
+
+## Compatibilidade entre VS Code e IntelliJ
+
+Para evitar diferença entre as IDEs:
+
+- use o Maven Wrapper do projeto (`mvnw.cmd`);
+- mantenha dependências dentro do `pom.xml`;
+- configure senhas e URLs por variável de ambiente ou `.env` local;
+- abra `nona-back` no IntelliJ quando quiser focar no Spring Boot;
+- abra a pasta raiz `nonna` no VS Code quando quiser trabalhar com front e back juntos;
+- mantenha apenas um repositório Git na raiz `nonna`.
+
+## Documentação do projeto
+
+Arquivos de apoio:
+
+```text
+PADRAO_DESENVOLVIMENTO.md   -> regras de organização, comentários, segurança e commits
+DOCUMENTACAO_TECNICA.md     -> contexto técnico para continuidade do projeto
+SUPABASE.md                 -> configuração do banco no Supabase
+AGENTS.md                   -> notas curtas para continuidade do projeto
+```
+
+## Próximos passos
 
 - Integrar o front-end com a API real do Spring Boot.
 - Criar CRUD completo de produtos.
-- Salvar reservas feitas pelo formulario.
+- Salvar reservas no banco de dados.
 - Criar dashboard administrativo.
-- Adicionar autenticacao para area administrativa.
-- Evoluir a integracao com Supabase para autenticacao e storage de imagens.
-- Publicar o front-end na Vercel.
-- Configurar variaveis de producao para Vercel e API em ambiente publicado.
-- Criar pipeline de CI/CD para testes e deploy automatico.
+- Adicionar autenticação para a área administrativa.
+- Usar Supabase Storage para imagens dos produtos.
+- Preparar deploy do front-end na Vercel.
+- Configurar variáveis de produção.
+- Criar pipeline de CI/CD para testes e deploy.
 
-## Creditos
+## Créditos
 
-Projeto desenvolvido por Jose Tavares durante os estudos de desenvolvimento full stack.
+Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
 
-Creditos ao professor Gabriel Carvalho: https://github.com/GabrielBdeC
+Agradecimento ao professor Gabriel Carvalho, referência durante as aulas:
+
+https://github.com/GabrielBdeC
