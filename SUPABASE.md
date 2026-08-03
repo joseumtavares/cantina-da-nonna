@@ -49,6 +49,50 @@ postgres.[PROJECT_REF]
 
 Nunca coloque a senha real no GitHub.
 
+
+## 3.1. Qual metodo de conexao usar
+
+Para o nosso projeto Java/Spring Boot, use a aba:
+
+```text
+Direct > Connection string
+```
+
+Preferencia atual:
+
+```text
+Connection Method: Session pooler
+Type: URI
+```
+
+Motivo: a conexao direta do Supabase pode retornar apenas IPv6. Se a rede local nao tiver IPv6 funcionando, o Java nao consegue conectar. O `Session pooler` costuma evitar esse problema porque fornece um host mais compativel com redes IPv4.
+
+Opcao Direct connection:
+
+```text
+postgresql://postgres:[SUA-SENHA]@db.[PROJECT_REF].supabase.co:5432/postgres
+```
+
+No Spring Boot essa URL vira:
+
+```properties
+SUPABASE_DB_URL=jdbc:postgresql://db.[PROJECT_REF].supabase.co:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres
+```
+
+Opcao Session pooler:
+
+```text
+postgresql://postgres.[PROJECT_REF]:[SUA-SENHA]@aws-[REGIAO].pooler.supabase.com:5432/postgres
+```
+
+No Spring Boot essa URL vira:
+
+```properties
+SUPABASE_DB_URL=jdbc:postgresql://aws-[REGIAO].pooler.supabase.com:5432/postgres?sslmode=require
+SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
+```
+
 ## 4. Como configurar no arquivo .env local
 
 Copie:
