@@ -1,25 +1,19 @@
 /*
-  VARIABLES.CSS
+  variables.css
   ---------------------------------------------------------------------------
-  Este arquivo é o "cofre de cores e fontes" do site. Em vez de escrever a
-  mesma cor várias vezes em vários arquivos, guardamos ela aqui, com um nome,
-  e usamos esse nome (uma "variável CSS") em qualquer lugar do site.
-  Vantagem: se um dia quiser trocar o vinho por outro tom, muda em um único
-  lugar e o site inteiro se atualiza sozinho.
+  Este arquivo é o ponto de partida da identidade visual da Cantina da Nonna.
+  As cores, fontes e medidas ficam centralizadas aqui para que o site inteiro
+  possa evoluir sem espalhar valores repetidos por vários arquivos.
 
-  A partir desta etapa, o site usa o Bootstrap como base de tudo (grid,
-  botões, formulários, navbar, cards). Por isso, além de guardar as CORES
-  DA MARCA, este arquivo também "ensina" essas cores para o Bootstrap,
-  sobrescrevendo as variáveis que ele já usa internamente
-  (as que começam com --bs-). Assim, uma classe pronta do Bootstrap como
-  "btn-primary" ou "text-primary" já nasce na cor vinho da Cantina, sem
-  precisarmos escrever nenhum CSS extra para isso.
+  Também ajustamos variáveis do Bootstrap (--bs-*) neste mesmo lugar. Assim,
+  classes prontas como btn-primary, text-primary e bg-dark já nascem com a
+  aparência da marca, sem precisar criar uma regra nova para cada componente.
 */
 
 :root {
   /* ----------------------------------------------------------------------
-     1) PALETA DE CORES DA MARCA
-     Nomes em português para ficar fácil de lembrar qual cor é qual.
+     Paleta da marca
+     Cores nomeadas em português ajudam a lembrar o papel visual de cada tom.
      ---------------------------------------------------------------------- */
   --vinho: #8B2E1F;
   --terracota: #C65A1E;
@@ -31,9 +25,8 @@
   --dourado: #C89B3C;
   --verde-manjericao: #556B2F;
 
-  /* Apelidos "profissionais": deixam o significado de cada cor mais claro
-     (qual é a cor principal, qual é a de destaque, etc.), sem duplicar o
-     valor da cor em si. */
+  /* Apelidos semânticos deixam claro quando uma cor é principal, destaque,
+     texto, fundo ou apoio. O valor real continua vindo da paleta acima. */
   --color-primary: var(--vinho);
   --color-secondary: var(--dourado);
   --color-accent: var(--terracota);
@@ -44,13 +37,9 @@
   --color-background: var(--creme-claro);
 
   /* ----------------------------------------------------------------------
-     2) TIPOGRAFIA
-     Trocamos a fonte antiga (Verdana) por uma dupla mais atual:
-     - uma fonte "serifada" com personalidade para títulos (dá ares de
-       cantina italiana tradicional);
-     - uma fonte "sem serifa" limpa para textos corridos (fácil de ler em
-       qualquer tamanho de tela).
-     As duas são carregadas via Google Fonts no <head> de cada página.
+     Tipografia
+     Títulos usam uma fonte serifada para reforçar tradição; textos usam uma
+     fonte sem serifa para leitura confortável em celular e computador.
      ---------------------------------------------------------------------- */
   --fonte-titulos: "Playfair Display", Georgia, "Times New Roman", serif;
   --fonte-padrao: "Mulish", "Segoe UI", Roboto, Arial, sans-serif;
@@ -61,18 +50,16 @@
   --font-primary: var(--fonte-padrao);
 
   /* ----------------------------------------------------------------------
-     3) MEDIDAS REUTILIZADAS
+     Medidas reutilizadas
+     Guardamos aqui tamanhos que aparecem em mais de um ponto do layout.
      ---------------------------------------------------------------------- */
   --tamanho-logo: 52px;
   --tamanho-imagem-produto: 82px;
   --altura-mapa-rodape: 260px;
 
   /* ----------------------------------------------------------------------
-     4) "ENSINANDO" AS CORES DA MARCA PARA O BOOTSTRAP
-     O Bootstrap usa variáveis próprias (prefixo --bs-) para pintar botões,
-     links, bordas, fundos, etc. Sobrescrevendo elas aqui, qualquer classe
-     pronta do Bootstrap (ex: .btn-primary, .text-secondary, .bg-dark)
-     já sai com a identidade visual da Cantina da Nonna.
+     Integração com Bootstrap
+     Estas variáveis mudam o tema do Bootstrap para conversar com a marca.
      ---------------------------------------------------------------------- */
   --bs-primary: var(--color-primary);
   --bs-primary-rgb: 139, 46, 31;
@@ -93,8 +80,7 @@
   --bs-link-hover-color: var(--color-accent-hover);
   --bs-emphasis-color: var(--color-primary);
 
-  /* Deixa os cantos do site mais arredondados (visual "moderno"), incluindo
-     cards, botões, inputs, badges e modais do Bootstrap. */
+  /* Bordas mais arredondadas deixam cards, botões e inputs com aparência mais atual. */
   --bs-border-radius: 0.6rem;
   --bs-border-radius-sm: 0.4rem;
   --bs-border-radius-lg: 1rem;
@@ -102,12 +88,11 @@
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
 
-  /* Sombras um pouco mais suaves e quentes, ao invés do preto puro padrão. */
+  /* Sombras quentes combinam melhor com a paleta da Cantina do que o preto puro. */
   --bs-box-shadow: 0 0.5rem 1.5rem rgba(59, 33, 21, 0.12);
   --bs-box-shadow-sm: 0 0.25rem 0.5rem rgba(59, 33, 21, 0.08);
   --bs-box-shadow-lg: 0 1rem 3rem rgba(59, 33, 21, 0.18);
 
-  /* Cor do "anel" de foco (contorno que aparece ao navegar pelo teclado),
-     usando o dourado da marca em vez do azul padrão do Bootstrap. */
+  /* Foco dourado ajuda na navegação por teclado sem fugir da identidade visual. */
   --bs-focus-ring-color: rgba(200, 155, 60, 0.5);
 }

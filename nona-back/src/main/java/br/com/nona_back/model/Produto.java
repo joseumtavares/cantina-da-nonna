@@ -2,53 +2,42 @@ package br.com.nona_back.model;
 
 import java.math.BigDecimal;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/model/Produto.java
-//
-// MODEL - representa um dado do sistema.
-// Esta classe segue a ideia usada pelo professor: Java puro, sem @Service,
-// sem @Repository e sem SQL. A responsabilidade dela e carregar os dados
-// de um produto entre as camadas da aplicacao.
+// Criado por Jose Tavares, tomando como base o model Produto usado na aula.
+// Model representa os dados que circulam entre as camadas. Ele fica sem SQL e sem anotações
+// de Service/Repository para manter uma responsabilidade simples: carregar informações do produto.
 public class Produto {
 
-    // UUID gerado pelo banco com DEFAULT (UUID()).
-    // Mantemos como String porque no MySQL/MariaDB ele fica salvo como texto de 36 caracteres.
+    // ID gerado pelo banco; usamos String para manter compatibilidade com o UUID em texto do MySQL/MariaDB.
     private String id;
 
-    // Melhoria criada por Jose Tavares:
-    // codigo interno do produto, usado futuramente no cadastro administrativo.
+    // Código interno pensado para a futura tela administrativa de cadastro.
     private String codigo;
 
     private String nome;
 
-    // Melhoria criada por Jose Tavares:
-    // descricao aparece no front-end e tambem ajuda no cadastro do produto.
+    // Descrição exibida no cardápio e reaproveitada no cadastro administrativo.
     private String descricao;
 
-    // Mesmo conceito da aula: BigDecimal para dinheiro.
-    // No banco da aula a coluna chama preco; no nosso banco ela chama valor.
-    // O Repository faz o alias SELECT p.valor AS preco para manter o codigo parecido.
+    // BigDecimal evita problemas de arredondamento em valores monetários.
+    // O banco real usa a coluna valor, e o Repository aplica alias para manter o model próximo da aula.
     private BigDecimal preco;
 
-    // Melhoria criada por Jose Tavares:
-    // caminho da imagem do produto usada pelo front-end.
+    // Caminho da imagem que o front-end usa nos cards do cardápio.
     private String imagem;
 
     private String categoria;
 
-    // Melhoria criada por Jose Tavares:
-    // permite esconder produto do cardapio sem apagar do banco.
+    // Permite esconder um produto do cardápio sem apagar seu histórico do banco.
     private boolean ativo;
 
-    // Melhoria criada por Jose Tavares:
-    // permite marcar produtos para exibicao em areas de destaque.
+    // Marca produtos que podem aparecer em áreas de destaque da página inicial.
     private boolean destaque;
 
-    // Construtor vazio mantido para facilitar ferramentas que montam objetos automaticamente.
+    // Construtor vazio ajuda frameworks e ferramentas que criam objetos automaticamente.
     public Produto() {
     }
 
-    // Construtor usado pelo Repository para montar o objeto a partir de cada linha do banco.
+    // Construtor usado pelo Repository ao converter cada linha do banco em Produto.
     public Produto(String id, String codigo, String nome, String descricao, BigDecimal preco, String imagem,
                    String categoria, boolean ativo, boolean destaque) {
         this.id = id;
@@ -62,8 +51,7 @@ public class Produto {
         this.destaque = destaque;
     }
 
-    // Getters e setters: o Spring usa os getters para montar o JSON.
-    // Se um getter nao existir, o campo nao aparece na resposta da API.
+    // O Spring usa os getters para montar o JSON devolvido pela API.
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -77,7 +65,7 @@ public class Produto {
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    // Igual ao padrao da aula: devolvemos String para o JSON mostrar "39.00".
+    // Devolvemos String para preservar o formato monetário simples usado nesta etapa da aula.
     public String getPreco() { return preco == null ? null : preco.toString(); }
     public void setPreco(BigDecimal preco) { this.preco = preco; }
 

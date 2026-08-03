@@ -6,26 +6,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/service/ProdutoService.java
-//
-// SERVICE - camada de regras de negocio.
-// Nao sabe o que e HTTP e nao escreve SQL. Ele conversa com o Repository
-// e entrega dados prontos para o Controller.
+// Criado por Jose Tavares, seguindo a separação de responsabilidades usada na aula.
+// Service é a camada onde as regras de negócio devem nascer. Nesta fase ele apenas coordena
+// a busca de produtos, mas já protege o Controller de conhecer SQL ou detalhes do banco.
 @Service
 public class ProdutoService {
 
-    // O Service depende do Repository, seguindo a seta da aula:
-    // Controller -> Service -> Repository.
+    // Mantém o caminho do MVC do projeto: Controller -> Service -> Repository.
     private final ProdutoRepository repository;
 
-    // Injecao de dependencia via construtor.
+    // Injeção via construtor facilita testes e mantém a dependência explícita.
     public ProdutoService(ProdutoRepository repository) {
         this.repository = repository;
     }
 
-    // Metodo publico chamado pelo Controller.
-    // O nome listar foi mantido igual ao da aula.
+    // Nome simples e próximo da aula para facilitar a comparação durante o aprendizado.
     public List<Produto> listar() {
         return repository.buscarTodos();
     }

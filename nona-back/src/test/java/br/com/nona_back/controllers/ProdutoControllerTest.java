@@ -11,16 +11,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/controllers/ProdutoController.java
-//
-// Este teste confirma se a rota /produtos passa por Controller -> Service -> Repository
-// e devolve produtos vindos do banco em formato JSON.
+// Criado por Jose Tavares, acompanhando a estrutura do ProdutoController estudada em aula.
+// O teste protege o fluxo Controller -> Service -> Repository e confirma que a API devolve JSON útil ao front-end.
 @SpringBootTest
 @AutoConfigureMockMvc
 class ProdutoControllerTest {
 
-    // MockMvc simula uma chamada HTTP sem precisar abrir navegador.
+    // MockMvc simula requisições HTTP sem abrir navegador nem subir um servidor manualmente.
     @Autowired
     private MockMvc mockMvc;
 

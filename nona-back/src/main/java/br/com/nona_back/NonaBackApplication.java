@@ -3,11 +3,8 @@ package br.com.nona_back;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/NonnaApplication.java
-//
-// Classe principal da aplicacao Spring Boot.
-// E por aqui que IntelliJ, VS Code ou Maven iniciam o backend.
+// Criado por Jose Tavares, tomando como referência a estrutura da aula do professor Gabriel Carvalho.
+// Esta é a porta de entrada do Spring Boot: IntelliJ, VS Code e Maven iniciam o back-end por aqui.
 @SpringBootApplication
 public class NonaBackApplication {
 

@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <!-- A tag <head> reúne informações da página que não aparecem diretamente no conteúdo (título da aba, ícones, arquivos de estilo). -->
+  <!-- O <head> guarda configurações da página: codificação, responsividade, ícone, fontes e estilos. -->
   <head>
-    <!-- <meta charset> define a codificação de caracteres, permitindo acentos e caracteres especiais do português. -->
+    <!-- UTF-8 mantém acentos e símbolos do português funcionando corretamente. -->
     <meta charset="UTF-8">
 
-    <!-- <meta name="viewport"> faz a página se adaptar corretamente a celulares, tablets e computadores. -->
+    <!-- Viewport orienta o navegador a adaptar o layout em celulares, tablets e computadores. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Ícone exibido na aba do navegador. -->
+    <!-- Favicon exibido na aba do navegador. -->
     <link rel="icon" type="image/png" href="../favicon/favicon.png">
 
-    <!-- Bootstrap CSS: biblioteca externa com o grid, os componentes prontos
-         (navbar, cards, botões, formulários) e os utilitários responsivos
-         que agora sustentam todo o layout do site. -->
+    <!-- Bootstrap CSS entrega o grid, a navbar, cards, botões, formulários e utilitários responsivos usados no layout. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <!-- Fontes do Google Fonts: uma serifada para títulos (Playfair Display)
-         e uma sem serifa para textos (Mulish), substituindo a fonte antiga. -->
+    <!-- Google Fonts carrega uma fonte com personalidade para títulos e outra mais limpa para leitura. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Variables CSS: cofre com as cores e fontes da marca, e também onde
-         essas cores são ensinadas ao Bootstrap (variáveis --bs-...). -->
+    <!-- variables.css concentra cores, fontes e ajustes globais que também alimentam o Bootstrap. -->
     <link rel="stylesheet" href="../css/variables.css">
-    <!-- Theme CSS: apenas os toques exclusivos da identidade da Cantina que
-         o Bootstrap não tem pronto (navbar de marca, cards de produto,
-         mapa do rodapé, etc). -->
+    <!-- theme.css guarda os detalhes visuais próprios da Cantina que não vêm prontos no Bootstrap. -->
     <link rel="stylesheet" href="../css/theme.css">
 
-    <!-- <title> define o texto exibido na aba do navegador. -->
+    <!-- Título exibido na aba do navegador. -->
     <title>Cadastro de Produtos - Cantina da Nonna</title>
   </head>
 
   <body>
     <!--
-      CABEÇALHO E MENU (NAVBAR) DO SITE
-      Este bloco se repete em todas as páginas. Usa o componente "navbar"
-      pronto do Bootstrap: ele já resolve sozinho o menu recolhido (hambúrguer)
-      no celular através do atributo data-bs-toggle="collapse" no botão abaixo.
-      No futuro, quando o back-end existir, este trecho pode virar um
-      "component"/"partial" reaproveitável (ex.: um include de template),
-      em vez de ficar copiado manualmente em cada página HTML.
+      Cabeçalho e navegação principal.
+      O Bootstrap controla o menu recolhido no celular; quando o projeto ganhar templates,
+      este bloco deve virar um trecho reutilizável para evitar cópia entre páginas.
     -->
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow" data-bs-theme="dark">
-        <!-- .container centraliza o conteúdo da navbar e aplica a mesma
-             largura máxima usada no restante do site. -->
+        <!-- container mantém a navbar alinhada com a largura das demais seções. -->
         <div class="container">
-          <!-- navbar-brand: link especial do Bootstrap para a marca do site (logotipo + nome). -->
+          <!-- Link de marca da navbar: junta logotipo, subtítulo e nome da cantina. -->
           <a class="navbar-brand d-flex align-items-center" href="../index.html">
             <img class="marca-logo" src="../images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
             <span class="marca-texto">
@@ -58,14 +47,12 @@
             </span>
           </a>
 
-          <!-- Botão do menu hambúrguer: o próprio Bootstrap mostra e esconde o
-               menu abaixo dele quando a tela é pequena (não precisamos mais de
-               JavaScript próprio para isso). -->
+          <!-- Botão hambúrguer: o Bootstrap abre e fecha este menu automaticamente em telas pequenas. -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <!-- Área do menu que recolhe no celular e aparece inteira no computador. -->
+          <!-- Menu principal: recolhe no celular e fica expandido em telas maiores. -->
           <div class="collapse navbar-collapse" id="menuPrincipal">
             <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-2 py-2 py-lg-0">
           <li class="nav-item">
@@ -84,14 +71,12 @@
             <a class="btn btn-cta-reserva" href="reserva.html">Faça sua reserva</a>
           </li>
 
-          <!-- Link da área administrativa: cadastro de produtos do cardápio. -->
+          <!-- Atalho da área administrativa para o cadastro visual de produtos. -->
           <li class="nav-item">
             <a class="nav-link" href="cadastro-produtos.html" aria-current="page">Cadastro de produtos</a>
           </li>
 
-          <!-- Botão de logout: hoje não faz nada (href="#") porque ainda não existe
-               back-end com login. Quando o back-end existir, este link deve chamar a
-               rota de logout (ex: POST /api/logout) e redirecionar para a tela de login. -->
+          <!-- Logout ainda é visual; quando houver autenticação, este botão chamará a rota de saída do back-end. -->
           <li class="nav-item">
             <a class="btn btn-cta-logout" href="#">Logout</a>
           </li>
@@ -101,9 +86,9 @@
       </nav>
     </header>
 
-    <!-- <main> define o conteúdo principal da página administrativa. -->
+    <!-- O <main> concentra o conteúdo principal da página administrativa. -->
     <main>
-      <!-- HERO da área administrativa. -->
+      <!-- Abertura da tela administrativa, separando visualmente gestão e páginas públicas. -->
       <section class="pagina-hero py-5 mb-5">
         <div class="container text-center text-lg-start">
           <p class="texto-destaque-superior">Gestão do cardápio</p>
@@ -114,7 +99,7 @@
       <div class="container pb-5">
         <section class="row justify-content-center">
           <div class="col-12 col-lg-8">
-            <!-- Card Bootstrap que envolve todo o formulário de cadastro. -->
+            <!-- Card que organiza o formulário administrativo com o mesmo padrão visual do site. -->
             <div class="card card-formulario shadow-sm">
               <div class="card-header">
                 <h2 class="h4 mb-0">Cadastrar novo produto</h2>
@@ -122,54 +107,42 @@
 
               <div class="card-body p-4">
                 <!--
-                  ATENÇÃO - PONTO DE EXPANSÃO FUTURA (back-end + banco de dados)
-                  Hoje este formulário não salva nada de verdade: o
-                  action="#" é só um espaço reservado. Quando o back-end
-                  existir, o plano é:
-                    1) Trocar para action="/api/produtos" method="post";
-                    2) O back-end recebe estes mesmos campos (nome-produto,
-                       codigo-produto, descricao-produto, valor-produto,
-                       imagem-produto, categoria-produto, produto-ativo);
-                    3) Ele valida os dados e grava um novo registro na
-                       tabela "produtos" do banco de dados;
-                    4) A imagem enviada pode ser guardada em um serviço de
-                       arquivos (ex.: pasta do servidor ou serviço de nuvem)
-                       e o caminho dela salvo junto no banco.
-                  Por isso os "name" de cada campo já seguem um padrão
-                  claro: são eles que o back-end vai receber prontos.
+                  Formulário administrativo ainda sem persistência.
+                  Os atributos name já foram pensados para a futura API de produtos; quando o back-end estiver pronto,
+                  a rota deverá validar os campos, salvar o produto na tabela produtos e guardar apenas o caminho da imagem.
                 -->
                 <form action="#" method="post" enctype="multipart/form-data">
-                  <!-- Row Bootstrap: organiza os campos em colunas responsivas. -->
+                  <!-- Grid do formulário administrativo: campos lado a lado em telas médias e empilhados no celular. -->
                   <div class="row g-3">
-                    <!-- Campo nome do produto. -->
+                    <!-- Nome público do produto no cardápio. -->
                     <div class="col-12 col-md-6">
                       <label for="nome-produto" class="form-label">Nome do produto</label>
                       <input type="text" class="form-control" id="nome-produto" name="nome-produto" placeholder="Exemplo: Lasanha da Casa" aria-describedby="nomeProdutoAjuda" required>
                       <div id="nomeProdutoAjuda" class="form-text">Digite o nome que será exibido no cardápio.</div>
                     </div>
 
-                    <!-- Campo código do produto, para identificação interna (ex.: no futuro, chave única no banco de dados). -->
+                    <!-- Código interno que deve ser único quando a tela estiver integrada ao banco. -->
                     <div class="col-12 col-md-6">
                       <label for="codigo-produto" class="form-label">Código do produto</label>
                       <input type="text" class="form-control" id="codigo-produto" name="codigo-produto" placeholder="Exemplo: MASSA-001" aria-describedby="codigoProdutoAjuda" required>
                       <div id="codigoProdutoAjuda" class="form-text">Use um código único para localizar o produto depois.</div>
                     </div>
 
-                    <!-- Campo descrição usando textarea do Bootstrap. -->
+                    <!-- Descrição usada para ingredientes, preparo ou detalhes do produto. -->
                     <div class="col-12">
                       <label for="descricao-produto" class="form-label">Descrição</label>
                       <textarea class="form-control" id="descricao-produto" name="descricao-produto" rows="4" placeholder="Descreva ingredientes, preparo ou detalhes do produto" aria-describedby="descricaoProdutoAjuda" required></textarea>
                       <div id="descricaoProdutoAjuda" class="form-text">Escreva uma descrição curta e clara para o cliente.</div>
                     </div>
 
-                    <!-- Campo valor com tipo number para aceitar valores numéricos. -->
+                    <!-- Valor numérico do produto, preparado para salvar preço no back-end. -->
                     <div class="col-12 col-md-6">
                       <label for="valor-produto" class="form-label">Valor</label>
                       <input type="number" class="form-control" id="valor-produto" name="valor-produto" min="0" step="0.01" placeholder="Exemplo: 39.90" aria-describedby="valorProdutoAjuda" required>
                       <div id="valorProdutoAjuda" class="form-text">Informe o preço usando ponto para separar os centavos.</div>
                     </div>
 
-                    <!-- Campo categoria usando o componente select do Bootstrap. -->
+                    <!-- Categoria que define onde o produto aparecerá no cardápio. -->
                     <div class="col-12 col-md-6">
                       <label for="categoria-produto" class="form-label">Categoria</label>
                       <select class="form-select" id="categoria-produto" name="categoria-produto" aria-label="Selecione a categoria do produto" aria-describedby="categoriaProdutoAjuda" required>
@@ -183,14 +156,14 @@
                       <div id="categoriaProdutoAjuda" class="form-text">Escolha onde o produto será exibido no cardápio.</div>
                     </div>
 
-                    <!-- Campo imagem com input file do Bootstrap. -->
+                    <!-- Upload visual da imagem; futuramente o back-end salvará o arquivo ou seu caminho. -->
                     <div class="col-12 col-md-6">
                       <label for="imagem-produto" class="form-label">Imagem</label>
                       <input type="file" class="form-control" id="imagem-produto" name="imagem-produto" accept="image/*" aria-describedby="imagemProdutoAjuda">
                       <div id="imagemProdutoAjuda" class="form-text">Selecione uma imagem do produto em PNG, JPG ou outro formato de imagem.</div>
                     </div>
 
-                    <!-- Checkbox para indicar se o produto aparece ativo no cardápio. -->
+                    <!-- Controle visual para mostrar ou esconder o produto do cardápio. -->
                     <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="produto-ativo" name="produto-ativo" checked>
@@ -199,7 +172,7 @@
                     </div>
                   </div>
 
-                  <!-- Área de ações do formulário com botões Bootstrap. -->
+                  <!-- Ações do formulário administrativo. -->
                   <div class="d-flex flex-wrap gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">Salvar produto</button>
                     <button type="reset" class="btn btn-outline-secondary">Limpar formulário</button>
@@ -212,13 +185,11 @@
       </div>
     </main>
 
-    <!-- Página administrativa: por enquanto não tem rodapé com mapa, pois será
-         integrada a um painel (dashboard) próprio quando o back-end existir. -->
-    <!-- Bootstrap JS Bundle: liga o funcionamento da navbar (menu recolhido). -->
+    <!-- Tela administrativa sem rodapé público; ela será integrada a um dashboard próprio em uma próxima etapa. -->
+    <!-- Bootstrap JS Bundle ativa o menu recolhido da navbar administrativa. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <!-- Arquivo JavaScript local com pequenos ajustes do menu e o ponto de
-         partida para futuras integrações com o back-end. -->
+    <!-- site.js guarda pequenos comportamentos do menu e pontos de preparação para integração com o back-end. -->
     <script src="../js/site.js"></script>
   </body>
 </html>

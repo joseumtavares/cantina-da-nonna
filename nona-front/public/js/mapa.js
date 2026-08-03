@@ -1,48 +1,51 @@
 /*
-  Arquivo JavaScript responsável pelo minimapa do rodapé.
-  O Leaflet.js usa este arquivo para desenhar o mapa, adicionar o marcador e abrir os links de GPS.
+  mapa.js
+  ---------------------------------------------------------------------------
+  Monta o minimapa do rodapé com Leaflet e OpenStreetMap. O mapa fica dentro
+  da página, mas o clique em uma área livre abre a rota no Google Maps para
+  facilitar a navegação do cliente.
 */
 
-/* Endereço usado nos links de navegação do Google Maps e Waze. */
+/* Endereço usado tanto no popup quanto nos links de rota. */
 const enderecoCantina = "Rua Renata Costa 945, Centro, Balneário Arroio do Silva, SC";
 
-/* Coordenadas usadas para centralizar o mapa e posicionar o marcador da cantina. */
+/* Coordenadas da Cantina da Nonna, usadas para centralizar mapa e marcador. */
 const latitudeCantina = -28.98603;
 const longitudeCantina = -49.41643;
 
-/* Array com latitude e longitude no formato esperado pelo Leaflet. */
+/* Leaflet espera coordenadas no formato [latitude, longitude]. */
 const coordenadasCantina = [latitudeCantina, longitudeCantina];
 
-/* Links externos que abrem a rota em aplicativos de GPS. */
+/* Links externos são montados por JavaScript para manter o HTML mais limpo. */
 const urlGoogleMaps = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(enderecoCantina);
 const urlWaze = "https://waze.com/ul?q=" + encodeURIComponent(enderecoCantina) + "&navigate=yes";
 
-/* Aguarda o HTML carregar antes de tentar montar o mapa. */
+/* Só tentamos montar o mapa depois que o HTML já está disponível no navegador. */
 document.addEventListener("DOMContentLoaded", function () {
-  /* Busca a div onde o mapa será exibido no rodapé. */
+  /* Algumas páginas administrativas não têm mapa; nesse caso o script termina sem erro. */
   const elementoMapa = document.getElementById("mapa-rodape");
 
-  /* Interrompe o código se a página não tiver mapa ou se o Leaflet não carregou. */
+  /* Também encerramos se o Leaflet não carregou, evitando quebrar o restante da página. */
   if (!elementoMapa || typeof L === "undefined") {
     return;
   }
 
-  /* Cria o mapa, centraliza na cantina e define o zoom inicial. */
+  /* Cria o mapa já centralizado no endereço da cantina. */
   const mapa = L.map("mapa-rodape").setView(coordenadasCantina, 16);
 
-  /* Adiciona os blocos visuais do OpenStreetMap ao mapa. */
+  /* OpenStreetMap fornece os blocos visuais que formam o mapa. */
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(mapa);
 
-  /* Cria o marcador no endereço da Cantina da Nonna. */
+  /* Marcador fixo no endereço da Cantina da Nonna. */
   const marcador = L.marker(coordenadasCantina, {
     title: "Cantina da Nonna",
     alt: "Marcador da Cantina da Nonna"
   }).addTo(mapa);
 
-  /* Adiciona uma janela de informação ao marcador com links de GPS. */
+  /* Popup com endereço e atalhos de GPS para quem clicar diretamente no marcador. */
   marcador.bindPopup(
     '<strong>Cantina da Nonna</strong><br>' +
     'Rua Renata Costa Nº 945 - Centro<br>' +
@@ -51,22 +54,19 @@ document.addEventListener("DOMContentLoaded", function () {
     '<a class="link-popup-mapa" href="' + urlWaze + '" target="_blank" rel="noopener noreferrer">Waze</a>'
   );
 
-  /* Impede que o clique direto no marcador abra a rota antes do cliente ver o popup. */
+  /* Clique no marcador mostra o popup; clique no restante do mapa abre a rota. */
   marcador.on("click", function (evento) {
     L.DomEvent.stopPropagation(evento.originalEvent);
   });
 
-  /* Ao clicar em qualquer área livre do mapa, abre a rota no Google Maps em uma nova aba. */
   mapa.on("click", function (evento) {
-    /* Identifica qual elemento visual recebeu o clique dentro do mapa. */
     const elementoClicado = evento.originalEvent.target;
 
-    /* Evita abrir rota quando o clique acontecer dentro do popup ou nos controles do Leaflet. */
+    /* Controles e popup precisam continuar interativos sem abrir uma nova aba por engano. */
     if (elementoClicado.closest(".leaflet-popup") || elementoClicado.closest(".leaflet-control")) {
       return;
     }
 
-    /* Abre o Google Maps para iniciar a rota para a Cantina da Nonna. */
     window.open(urlGoogleMaps, "_blank");
   });
 });

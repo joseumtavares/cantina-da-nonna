@@ -6,11 +6,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/controllers/HealthCheckController.java
-//
-// Na aula, este controller retornava apenas "OK" para provar que o servidor web subiu.
-// Melhoria criada por Jose Tavares: alem do servidor web, tambem testamos o banco de dados.
+// Criado por Jose Tavares, tomando como referência o HealthCheckController da aula.
+// A versão da aula confirmava apenas que o servidor subiu; aqui também verificamos o banco,
+// porque isso ajuda a enxergar rapidamente qual parte do ambiente está funcionando.
 @RestController
 public class HealthCheckController {
 
@@ -18,33 +16,32 @@ public class HealthCheckController {
     private static final String BANCO_DE_DADOS_ONLINE = "conexao com banco de dados efetuada com sucesso";
     private static final String BANCO_DE_DADOS_OFFLINE = "Banco de dados indisponivel: conexao com banco de dados nao foi efetuada";
 
-    // JdbcTemplate executa o SELECT 1 usado para testar o banco.
+    // Usamos o JdbcTemplate apenas para um teste leve de conexão com o banco.
     private final JdbcTemplate jdbcTemplate;
 
     public HealthCheckController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Codigo original da aula:
+    // Referência original da aula, mantida para comparação durante o estudo:
     // @GetMapping("/health-check/liveness")
     // public String liveness() {
     //     return "OK";
     // }
 
-    // Melhoria criada por Jose Tavares:
-    // a rota principal informa servidor web e banco de dados na mesma resposta.
+    // A rota principal resume servidor web e banco em uma única resposta.
     @GetMapping("/health-check/liveness")
     public ResponseEntity<String> liveness() {
         return status();
     }
 
-    // Rota separada para testar somente o banco de dados.
+    // Rota útil quando queremos testar apenas a conexão com o banco.
     @GetMapping("/health-check/database")
     public ResponseEntity<String> database() {
         return verificarBancoDeDados();
     }
 
-    // Rota de resumo dos servicos conhecidos ate agora.
+    // Resumo dos serviços essenciais conhecidos nesta fase do projeto.
     @GetMapping("/health-check/status")
     public ResponseEntity<String> status() {
         ResponseEntity<String> respostaBanco = verificarBancoDeDados();
@@ -58,7 +55,7 @@ public class HealthCheckController {
                 .body(SERVIDOR_WEB_ONLINE + " | " + respostaBanco.getBody());
     }
 
-    // Metodo privado para reaproveitar a mesma verificacao em mais de uma rota.
+    // Centraliza a verificação para manter as rotas consistentes entre si.
     private ResponseEntity<String> verificarBancoDeDados() {
         try {
             Integer respostaBanco = jdbcTemplate.queryForObject("SELECT 1", Integer.class);

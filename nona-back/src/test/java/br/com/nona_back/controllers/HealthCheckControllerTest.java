@@ -2,11 +2,11 @@ package br.com.nona_back.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-// IMPORT ORIGINAL USADO EM EXEMPLOS DO SPRING BOOT 3:
-// No Spring Boot 4 este pacote mudou, por isso ficou comentado para consulta.
+// Referência comum em materiais do Spring Boot 3.
+// No Spring Boot 4 o pacote mudou; deixamos a linha antiga como nota de estudo.
 // import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
-// IMPORT AJUSTADO PARA SPRING BOOT 4:
+// Import correto para a versão atual do projeto.
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -21,22 +21,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/controllers/HealthCheckController.java
-//
-// TESTE DO CONTROLLER DE HEALTH CHECK:
-// Esta classe valida se os endpoints de servidor web e banco respondem corretamente.
+// Criado por Jose Tavares, a partir do controller de health check usado na aula.
+// Estes testes deixam claro se o servidor web e a conexão com o banco continuam respondendo como esperado.
 @SpringBootTest
 @AutoConfigureMockMvc
 class HealthCheckControllerTest {
 
-    // MockMvc permite testar uma rota HTTP sem precisar abrir o navegador ou subir servidor manualmente.
+    // MockMvc permite testar rotas HTTP sem abrir navegador nem iniciar o servidor manualmente.
     @Autowired
     private MockMvc mockMvc;
 
-    // TESTE ORIGINAL AJUSTADO:
-    // Antes esperava "OK" e depois apenas "Servidor Web Online".
-    // Agora espera a mensagem completa com servidor web e banco de dados.
+    // A rota de liveness agora informa servidor web e banco na mesma mensagem.
     @Test
     void shouldReturnServidorWebAndDatabaseOnlineWhenLivenessEndpointIsCalled() throws Exception {
         mockMvc.perform(get("/health-check/liveness"))
@@ -44,8 +39,7 @@ class HealthCheckControllerTest {
                 .andExpect(content().string("Servidor Web Online | conexao com banco de dados efetuada com sucesso"));
     }
 
-    // NOVO TESTE:
-    // Valida se o endpoint do banco consegue executar SELECT 1 no MySQL/MariaDB do XAMPP.
+    // Valida o endpoint dedicado ao banco, independentemente de ser MySQL local ou Supabase.
     @Test
     void shouldReturnDatabaseSuccessWhenDatabaseEndpointIsCalled() throws Exception {
         mockMvc.perform(get("/health-check/database"))
@@ -53,8 +47,7 @@ class HealthCheckControllerTest {
                 .andExpect(content().string("conexao com banco de dados efetuada com sucesso"));
     }
 
-    // NOVO TESTE:
-    // Valida a rota geral que informa servidor web online e banco conectado.
+    // Garante que o resumo geral continue reunindo os serviços essenciais.
     @Test
     void shouldReturnGeneralStatusWhenAllServicesAreOnline() throws Exception {
         mockMvc.perform(get("/health-check/status"))
@@ -62,8 +55,7 @@ class HealthCheckControllerTest {
                 .andExpect(content().string("Servidor Web Online | conexao com banco de dados efetuada com sucesso"));
     }
 
-    // NOVO TESTE:
-    // Simula uma falha no banco e confirma se o controller informa qual servico nao esta funcionando.
+    // Simula falha no banco para garantir que a mensagem de erro seja clara e segura.
     @Test
     void shouldReturnDatabaseFailureMessageWhenDatabaseIsOffline() {
         JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);

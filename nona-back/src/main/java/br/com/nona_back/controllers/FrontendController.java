@@ -4,23 +4,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 // Criado por Jose Tavares.
-// Controller usado para abrir a pagina inicial do front-end pelo mesmo servidor do back-end.
-// Diferente dos controllers REST, este usa @Controller porque ele encaminha o navegador
-// para um arquivo HTML, em vez de devolver somente texto ou JSON.
+// Este controller entrega o front-end estático pelo mesmo servidor do back-end.
+// Usamos @Controller porque aqui o navegador é encaminhado para arquivos HTML, não para uma resposta JSON.
 @Controller
 public class FrontendController {
 
-    // Este mapeamento permite abrir o front-end pela raiz do servidor:
-    // http://localhost:8080/
+    // Caminho principal para abrir o site durante o desenvolvimento local.
     @GetMapping("/")
     public String abrirPaginaInicial() {
-        // forward:/index.html entrega o arquivo index.html da pasta de arquivos estaticos.
+        // forward mantém a URL na raiz e entrega o index.html da pasta pública.
         return "forward:/index.html";
     }
 
-    // Este mapeamento aceita o caminho digitado durante o estudo:
-    // http://localhost:8080/dev/nonna/nona-front
-    // O redirect muda a URL do navegador para /, evitando erro nos caminhos de CSS e imagens.
+    // Mantemos este atalho porque ele foi usado durante os estudos.
+    // O redirect evita que CSS, imagens e JavaScript quebrem por causa de caminhos relativos longos.
     @GetMapping({"/dev/nonna/nona-front", "/dev/nonna/nona-front/"})
     public String redirecionarParaPaginaInicial() {
         return "redirect:/";

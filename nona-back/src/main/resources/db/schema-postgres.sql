@@ -1,188 +1,183 @@
--- Criado por Jose Tavares.
--- Perfil Supabase/PostgreSQL.
--- Este arquivo cria as tabelas principais da Cantina da Nonna usando sintaxe PostgreSQL.
+-- Criado por Jose Tavares para o perfil Supabase/PostgreSQL.
+-- Este schema mantém a mesma intenção do banco local, usando a sintaxe correta do PostgreSQL.
 
 -- ==========================================================
 -- SCHEMA DO BANCO DE DADOS - CANTINA DA NONNA / SUPABASE
--- O Supabase ja entrega um banco PostgreSQL pronto, entao nao usamos
--- CREATE DATABASE nem USE como no MySQL local.
+-- O Supabase já entrega um banco PostgreSQL pronto, então não usamos CREATE DATABASE nem USE como no MySQL local.
 -- ==========================================================
 
--- Extensao usada para gerar UUIDs no PostgreSQL.
--- Equivalente ao padrao MySQL DEFAULT (UUID()) usado no projeto local.
+-- Extensão usada para gerar UUIDs no PostgreSQL, equivalente ao DEFAULT (UUID()) do MySQL local.
 CREATE EXTENSION IF NOT EXISTS pgcrypto^^^
 
 -- ==========================================================
 -- TABELA: categorias
--- Guarda as secoes do cardapio: Entradas, Massas, Pizzas,
--- Sobremesas e Bebidas.
+-- Guarda as seções do cardápio, como Entradas, Massas, Pizzas, Sobremesas e Bebidas.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS public.categorias (
-  -- ID padrao no Supabase/PostgreSQL: chave primaria gerada por UUID no banco.
+  -- ID gerado pelo próprio PostgreSQL usando UUID.
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-  -- Nome exibido para o usuario no cardapio.
+  -- Nome exibido para o cliente no cardápio.
   nome VARCHAR(80) NOT NULL,
 
-  -- Slug usado pelo sistema para filtrar produtos por categoria.
+  -- Slug estável usado pelo sistema para localizar e filtrar categorias.
   slug VARCHAR(80) NOT NULL,
 
-  -- Texto opcional para explicar a categoria.
+  -- Texto opcional para descrever melhor a categoria.
   descricao VARCHAR(255),
 
-  -- Controla se a categoria aparece ou nao no cardapio.
+  -- Permite ocultar uma categoria sem apagar seu histórico.
   ativo BOOLEAN NOT NULL DEFAULT TRUE,
 
-  -- Define a ordem de exibicao no cardapio.
+  -- Define a ordem em que a categoria aparece no cardápio.
   ordem_exibicao INTEGER NOT NULL DEFAULT 0,
 
-  -- Datas de auditoria para saber quando o registro foi criado/alterado.
+  -- Datas de auditoria ajudam a acompanhar criação e alterações do registro.
   criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-  -- Evita duas categorias com o mesmo identificador textual.
+  -- Garante que cada categoria tenha um slug único.
   CONSTRAINT uk_categorias_slug UNIQUE (slug)
 )^^^
 
 -- ==========================================================
 -- TABELA: produtos
--- Guarda os produtos exibidos no cardapio e cadastrados pela
--- pagina cadastro-produtos.html.
+-- Guarda os produtos exibidos no cardápio e preparados para a futura tela administrativa.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS public.produtos (
-  -- ID padrao no Supabase/PostgreSQL: chave primaria gerada por UUID no banco.
+  -- ID gerado pelo próprio PostgreSQL usando UUID.
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-  -- Relaciona o produto com uma categoria do cardapio.
+  -- Relaciona o produto com uma categoria existente do cardápio.
   categoria_id UUID NOT NULL,
 
-  -- Codigo interno informado no formulario administrativo.
+  -- Código interno usado para identificar o produto no cadastro administrativo.
   codigo VARCHAR(30) NOT NULL,
 
-  -- Nome publico do produto.
+  -- Nome público exibido para o cliente.
   nome VARCHAR(120) NOT NULL,
 
-  -- Descricao do produto, ingredientes ou detalhes do preparo.
+  -- Descrição com ingredientes, preparo ou detalhes úteis para o cardápio.
   descricao TEXT,
 
-  -- Valor monetario do produto.
+  -- Valor monetário do produto.
   valor NUMERIC(10,2) NOT NULL,
 
-  -- Caminho da imagem usada no front-end.
+  -- Caminho da imagem que o front-end renderiza nos cards.
   imagem VARCHAR(255),
 
-  -- Controla se o produto aparece no cardapio.
+  -- Permite retirar um produto do cardápio sem excluir o registro.
   ativo BOOLEAN NOT NULL DEFAULT TRUE,
 
-  -- Permite marcar produtos de destaque para a pagina inicial.
+  -- Marca produtos que podem aparecer nos destaques da página inicial.
   destaque BOOLEAN NOT NULL DEFAULT FALSE,
 
-  -- Define a ordem de exibicao dentro da categoria.
+  -- Define a ordem de exibição dentro da categoria.
   ordem_exibicao INTEGER NOT NULL DEFAULT 0,
 
-  -- Datas de auditoria para saber quando o registro foi criado/alterado.
+  -- Datas de auditoria ajudam a acompanhar criação e alterações do registro.
   criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-  -- Evita cadastrar dois produtos com o mesmo codigo interno.
+  -- Impede dois produtos com o mesmo código interno.
   CONSTRAINT uk_produtos_codigo UNIQUE (codigo),
 
-  -- Garante que o produto sempre pertence a uma categoria existente.
+  -- Garante que todo produto pertença a uma categoria válida.
   CONSTRAINT fk_produtos_categorias
     FOREIGN KEY (categoria_id)
     REFERENCES public.categorias(id)
     ON UPDATE CASCADE
     ON DELETE RESTRICT,
 
-  -- Evita valores negativos no cardapio.
+  -- Protege o cardápio contra valores negativos.
   CONSTRAINT chk_produtos_valor CHECK (valor >= 0)
 )^^^
 
 -- ==========================================================
 -- TABELA: reservas
--- Guarda os dados enviados pela pagina reserva.html.
+-- Guarda os dados que futuramente serão enviados pelo formulário de reserva.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS public.reservas (
-  -- ID padrao no Supabase/PostgreSQL: chave primaria gerada por UUID no banco.
+  -- ID gerado pelo próprio PostgreSQL usando UUID.
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-  -- Nome do cliente informado no formulario de reserva.
+  -- Nome informado pelo cliente no formulário de reserva.
   nome_cliente VARCHAR(120) NOT NULL,
 
-  -- Telefone ou WhatsApp para contato.
+  -- Telefone ou WhatsApp para confirmação da reserva.
   telefone VARCHAR(20) NOT NULL,
 
-  -- E-mail opcional do cliente.
+  -- E-mail opcional para contato com o cliente.
   email VARCHAR(120),
 
-  -- Quantidade de pessoas da reserva. O front usa minimo 1 e maximo 20.
+  -- Quantidade de pessoas; a regra do site é mínimo 1 e máximo 20.
   quantidade_pessoas INTEGER NOT NULL,
 
-  -- Data escolhida para a reserva.
+  -- Data escolhida pelo cliente.
   data_reserva DATE NOT NULL,
 
-  -- Horario escolhido para a reserva.
+  -- Horário escolhido pelo cliente.
   horario_reserva TIME NOT NULL,
 
-  -- Preferencia de ambiente escolhida no formulario.
+  -- Preferência de ambiente escolhida no formulário.
   ambiente VARCHAR(40) NOT NULL DEFAULT 'sem-preferencia',
 
-  -- Observacoes livres: cadeira infantil, aniversario, restricoes etc.
+  -- Observações livres, como cadeira infantil, aniversário ou restrição alimentar.
   observacoes TEXT,
 
-  -- Status operacional da reserva.
+  -- Status usado para acompanhar o atendimento da reserva.
   status VARCHAR(20) NOT NULL DEFAULT 'PENDENTE',
 
-  -- Datas de auditoria para saber quando o registro foi criado/alterado.
+  -- Datas de auditoria ajudam a acompanhar criação e alterações do registro.
   criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-  -- Replica no banco a regra do front-end: minimo 1, maximo 20 pessoas.
+  -- Repete no banco a mesma regra visual do formulário: de 1 a 20 pessoas.
   CONSTRAINT chk_reservas_pessoas CHECK (quantidade_pessoas BETWEEN 1 AND 20),
 
-  -- Mantem status padronizados para facilitar filtros futuros.
+  -- Mantém os status padronizados para filtros e painéis futuros.
   CONSTRAINT chk_reservas_status CHECK (status IN ('PENDENTE', 'CONFIRMADA', 'CANCELADA', 'CONCLUIDA')),
 
-  -- Mantem as mesmas opcoes do select da pagina reserva.html.
+  -- Mantém no banco as mesmas opções oferecidas no select do formulário.
   CONSTRAINT chk_reservas_ambiente CHECK (ambiente IN ('salao', 'varanda', 'familia', 'sem-preferencia'))
 )^^^
 
 -- ==========================================================
 -- TABELA: usuarios_administrativos
--- Preparada para o dashboard administrativo e para o botao Logout.
--- A senha deve ser salva como hash, nunca como texto puro.
+-- Preparada para o futuro dashboard administrativo e para o fluxo de login/logout.
+-- Senha deve ser armazenada somente como hash, nunca em texto puro.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS public.usuarios_administrativos (
-  -- ID padrao no Supabase/PostgreSQL: chave primaria gerada por UUID no banco.
+  -- ID gerado pelo próprio PostgreSQL usando UUID.
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-  -- Nome do usuario administrador.
+  -- Nome do usuário administrador.
   nome VARCHAR(120) NOT NULL,
 
-  -- E-mail usado para login.
+  -- E-mail usado no login administrativo.
   email VARCHAR(120) NOT NULL,
 
-  -- Senha criptografada/hash. Nunca salvar senha aberta no banco.
+  -- Hash da senha; senha aberta não deve ser gravada em hipótese nenhuma.
   senha_hash VARCHAR(255) NOT NULL,
 
-  -- Perfil para autorizacao futura no dashboard.
+  -- Perfil pensado para autorização no dashboard futuro.
   perfil VARCHAR(30) NOT NULL DEFAULT 'ADMIN',
 
-  -- Permite desativar usuarios sem apagar historico.
+  -- Permite desativar usuários sem apagar histórico.
   ativo BOOLEAN NOT NULL DEFAULT TRUE,
 
-  -- Datas de auditoria para saber quando o registro foi criado/alterado.
+  -- Datas de auditoria ajudam a acompanhar criação e alterações do registro.
   criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
-  -- Evita dois administradores com o mesmo e-mail.
+  -- Impede dois administradores com o mesmo e-mail.
   CONSTRAINT uk_usuarios_administrativos_email UNIQUE (email)
 )^^^
 
 -- ==========================================================
 -- ATUALIZACAO AUTOMATICA DO CAMPO atualizado_em
--- PostgreSQL nao possui ON UPDATE CURRENT_TIMESTAMP como MySQL.
--- Esta funcao e os triggers mantem o mesmo comportamento no Supabase.
+-- PostgreSQL não possui ON UPDATE CURRENT_TIMESTAMP como o MySQL.
+-- Esta função e os triggers reproduzem esse comportamento no Supabase.
 -- ==========================================================
 CREATE OR REPLACE FUNCTION public.atualizar_coluna_atualizado_em()
 RETURNS TRIGGER AS $$

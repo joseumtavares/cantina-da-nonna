@@ -6,33 +6,24 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// Criado por Jose Tavares.
-// Referencia da aula: SENAC_back/src/main/java/br/com/nonna/repository/ProdutoRepository.java
-//
-// REPOSITORY - unica camada que conhece o banco de dados.
-// Todo SQL fica aqui. Controller e Service apenas pedem uma List<Produto>
-// e nao precisam saber como o banco esta organizado.
+// Criado por Jose Tavares, mantendo a ideia de Repository apresentada na aula.
+// Esta é a única camada que conversa diretamente com o banco; assim Controller e Service
+// continuam focados no fluxo da aplicação, sem precisar conhecer a estrutura das tabelas.
 @Repository
 public class ProdutoRepository {
 
-    // JdbcTemplate e a ferramenta do Spring para executar SQL.
-    // O Spring cria a conexao com base no application.properties.
+    // JdbcTemplate executa o SQL usando a conexão configurada nos arquivos application-*.properties.
     private final JdbcTemplate jdbcTemplate;
 
-    // Injecao de dependencia via construtor.
-    // O Spring cria o JdbcTemplate e entrega para esta classe automaticamente.
+    // Injeção via construtor deixa claro que o Repository depende de acesso ao banco.
     public ProdutoRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Metodo publico chamado pelo Service.
-    // O nome buscarTodos foi mantido igual ao da aula para facilitar a comparacao.
+    // Método chamado pelo Service; o nome foi mantido simples para seguir a linha da aula.
     public List<Produto> buscarTodos() {
-        // SQL da aula:
-        // SELECT id, nome, preco, categoria FROM produto
-        //
-        // Melhoria criada por Jose Tavares:
-        // nosso banco separa categorias em outra tabela e possui mais campos para o front-end.
+        // Na aula a consulta vinha de uma tabela produto simples.
+        // Aqui já usamos o desenho real do projeto: categorias separadas, imagem, destaque e controle de ativo.
         String sql = """
                 SELECT
                     p.id,
@@ -50,7 +41,7 @@ public class ProdutoRepository {
                 ORDER BY c.ordem_exibicao, p.ordem_exibicao, p.nome
                 """;
 
-        // RowMapper: esta funcao roda uma vez para cada linha retornada pelo banco.
+        // O RowMapper transforma cada linha do ResultSet em um objeto Produto usado pela API.
         return jdbcTemplate.query(sql, (rs, linha) -> new Produto(
                 rs.getString("id"),
                 rs.getString("codigo"),

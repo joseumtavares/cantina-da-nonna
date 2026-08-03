@@ -1,14 +1,10 @@
--- Criado por Jose Tavares.
--- Referencia da aula: SENAC_back/migration/1-produto.sql
---
--- Passo 1: referencia didatica da tabela produto usada na aula.
--- Mantemos este arquivo para comparacao com o professor.
--- O schema real do projeto esta em src/main/resources/db/schema.sql,
--- onde usamos categorias separadas, produtos ativos, destaque e imagem.
+-- Criado por Jose Tavares, como referência didática da tabela produto vista na aula.
+-- Mantemos este arquivo para comparar a versão simples do professor com o schema real do projeto.
+-- A estrutura usada pela aplicação está em src/main/resources/db/schema.sql.
 
 USE `nona-db`;
 
--- Codigo original da aula, adaptado apenas para o nome do banco nona-db:
+-- Código original da aula, adaptado apenas para o nome do banco nona-db:
 -- CREATE TABLE produto (
 --   id        VARCHAR(36)   PRIMARY KEY DEFAULT (UUID()),
 --   nome      VARCHAR(80)   NOT NULL,
@@ -17,5 +13,4 @@ USE `nona-db`;
 --   categoria VARCHAR(30)
 -- );
 --
--- Melhoria criada por Jose Tavares:
--- o projeto real usa as tabelas categorias e produtos em src/main/resources/db/schema.sql.
+-- No projeto real, produtos ficam ligados à tabela categorias e possuem imagem, destaque, status ativo e ordem de exibição.

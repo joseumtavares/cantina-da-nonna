@@ -31,46 +31,40 @@
 	</properties>
 	<dependencies>
 
-		<!-- Criado por Jose Tavares.
-		     Referencia da aula: SENAC_back/pom.xml -->
+		<!-- Dependências escolhidas por Jose Tavares, mantendo a base da aula e adicionando o necessário para o projeto real. -->
 
-		<!-- Habilita o Spring MVC: permite criar controllers com @RestController,
-		     mapear URLs com @GetMapping e converter objetos em JSON automaticamente. -->
+		<!-- Spring MVC sustenta os controllers, as rotas HTTP e a conversão automática de objetos para JSON. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
-		<!-- Habilita o JdbcTemplate: ferramenta que o Repository usa para executar SQL.
-		     Tambem configura automaticamente o pool de conexoes com o banco. -->
+		<!-- JDBC permite usar JdbcTemplate no Repository e deixa o Spring configurar o pool de conexões. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
-		<!-- Driver MySQL: traduz as chamadas Java para o protocolo que o MySQL/MariaDB entende.
-		     scope=runtime significa que ele e necessario para executar, nao para importar no codigo. -->
+		<!-- Driver usado no perfil local com XAMPP/MySQL ou MariaDB. O código não importa classes dele diretamente, por isso fica em runtime. -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Driver PostgreSQL: necessario para conectar o Spring Boot ao banco do Supabase.
-		     O Supabase usa PostgreSQL, por isso mantemos este driver ao lado do MySQL. -->
+		<!-- Driver usado no perfil Supabase, que roda sobre PostgreSQL. Mantemos os dois drivers para alternar ambientes sem mudar código Java. -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Melhoria criada por Jose Tavares:
-		     Actuator ajuda a verificar a saude da aplicacao e do banco em ambiente de estudo. -->
+		<!-- Actuator facilita acompanhar a saúde da aplicação e do banco enquanto estudamos a integração. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<!-- Dependencias de teste: disponiveis apenas ao rodar mvn test. -->
+		<!-- Dependências usadas somente durante os testes automatizados. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
