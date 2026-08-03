@@ -8,6 +8,7 @@ Este guia explica como usar o banco PostgreSQL do Supabase no back-end Spring Bo
 - [Visão geral do projeto](README.md)
 - [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
 - [Configuração do ambiente](CONFIGURACAO_AMBIENTE.md)
+- [Materiais de estudo](MATERIAIS_ESTUDO.md)
 - [Documentação técnica](DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](SUPABASE.md)
 - [Notas rápidas de continuidade](AGENTS.md)

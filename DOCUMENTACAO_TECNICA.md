@@ -8,6 +8,7 @@ Este documento reúne o contexto técnico da Cantina da Nonna para quem precisar
 - [Visão geral do projeto](README.md)
 - [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
 - [Configuração do ambiente](CONFIGURACAO_AMBIENTE.md)
+- [Materiais de estudo](MATERIAIS_ESTUDO.md)
 - [Documentação técnica](DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](SUPABASE.md)
 - [Notas rápidas de continuidade](AGENTS.md)
@@ -124,6 +125,7 @@ nonna/
 |
 |-- AGENTS.md
 |-- CONFIGURACAO_AMBIENTE.md
+|-- MATERIAIS_ESTUDO.md
 |-- DOCUMENTACAO_TECNICA.md
 |-- PADRAO_DESENVOLVIMENTO.md
 |-- SUPABASE.md

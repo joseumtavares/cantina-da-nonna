@@ -8,6 +8,7 @@ Projeto front-end em HTML, CSS e JavaScript para estudo de estrutura semântica,
 - [README principal](../README.md)
 - [Padrão de desenvolvimento](../PADRAO_DESENVOLVIMENTO.md)
 - [Configuração do ambiente](../CONFIGURACAO_AMBIENTE.md)
+- [Materiais de estudo](../MATERIAIS_ESTUDO.md)
 - [Documentação técnica](../DOCUMENTACAO_TECNICA.md)
 - [Configuração do Supabase](../SUPABASE.md)
 - [Notas rápidas de continuidade](../AGENTS.md)

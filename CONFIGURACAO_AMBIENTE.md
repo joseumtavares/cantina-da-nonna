@@ -7,6 +7,7 @@ Este guia existe para deixar claro como preparar o computador para rodar a Canti
 - [Visao geral do projeto](README.md)
 - [Padrao de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
 - [Configuracao do ambiente](CONFIGURACAO_AMBIENTE.md)
+- [Materiais de estudo](MATERIAIS_ESTUDO.md)
 - [Documentacao tecnica](DOCUMENTACAO_TECNICA.md)
 - [Configuracao do Supabase](SUPABASE.md)
 - [Notas rapidas de continuidade](AGENTS.md)
