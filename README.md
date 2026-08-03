@@ -4,6 +4,31 @@ A Cantina da Nonna é um projeto full stack de estudo inspirado em uma cantina i
 
 O projeto está sendo desenvolvido por José Tavares durante os estudos de desenvolvimento web. A ideia é manter tudo organizado, fácil de entender e compatível com Visual Studio Code e IntelliJ IDEA, sem esconder os passos importantes do aprendizado.
 
+
+## Navegação
+
+- [Visão geral do projeto](README.md)
+- [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](SUPABASE.md)
+- [Notas rápidas de continuidade](AGENTS.md)
+- [README do front-end](nona-front/README.md)
+
+## Nesta página
+
+- [O que já existe](#o-que-já-existe)
+- [Tecnologias usadas](#tecnologias-usadas)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Padrão MVC do back-end](#padrão-mvc-do-back-end)
+- [Banco de dados](#banco-de-dados)
+- [Como rodar o back-end](#como-rodar-o-back-end)
+- [Como testar](#como-testar)
+- [Variáveis de ambiente](#variáveis-de-ambiente)
+- [Compatibilidade entre VS Code e IntelliJ](#compatibilidade-entre-vs-code-e-intellij)
+- [Documentação do projeto](#documentação-do-projeto)
+- [Próximos passos](#próximos-passos)
+- [Créditos](#créditos)
+
 ## O que já existe
 
 O repositório está dividido em duas partes principais:
@@ -164,7 +189,7 @@ nona-back/src/main/resources/db/data-postgres.sql
 
 A pasta `nona-back/migration` ficou no projeto como referência didática da aula. Os scripts realmente usados pela aplicação ficam em `src/main/resources/db`.
 
-Para detalhes da conexão com o Supabase, consulte `SUPABASE.md`.
+Para detalhes da conexão com o Supabase, consulte [SUPABASE.md](SUPABASE.md).
 
 ## Como rodar o back-end
 
@@ -242,12 +267,10 @@ Para evitar diferença entre as IDEs:
 
 Arquivos de apoio:
 
-```text
-PADRAO_DESENVOLVIMENTO.md   -> regras de organização, comentários, segurança e commits
-DOCUMENTACAO_TECNICA.md     -> contexto técnico para continuidade do projeto
-SUPABASE.md                 -> configuração do banco no Supabase
-AGENTS.md                   -> notas curtas para continuidade do projeto
-```
+- [PADRAO_DESENVOLVIMENTO.md](PADRAO_DESENVOLVIMENTO.md): regras de organização, comentários, segurança e commits.
+- [DOCUMENTACAO_TECNICA.md](DOCUMENTACAO_TECNICA.md): contexto técnico para continuidade do projeto.
+- [SUPABASE.md](SUPABASE.md): configuração do banco no Supabase.
+- [AGENTS.md](AGENTS.md): notas curtas para continuidade do projeto.
 
 ## Próximos passos
 
@@ -265,6 +288,6 @@ AGENTS.md                   -> notas curtas para continuidade do projeto
 
 Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
 
-Agradecimento ao professor Gabriel Carvalho, referência durante as aulas:
+Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC), referência durante as aulas.
 
-https://github.com/GabrielBdeC
+[Voltar ao topo](#cantina-da-nonna)

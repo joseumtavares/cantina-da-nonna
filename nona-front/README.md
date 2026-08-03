@@ -2,6 +2,24 @@
 
 Projeto front-end em HTML, CSS e JavaScript para estudo de estrutura semântica, organização profissional de arquivos e preparação para crescimento Full Stack.
 
+
+## Navegação
+
+- [README principal](../README.md)
+- [Padrão de desenvolvimento](../PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](../DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](../SUPABASE.md)
+- [Notas rápidas de continuidade](../AGENTS.md)
+
+## Nesta página
+
+- [Estrutura Principal](#estrutura-principal)
+- [Responsabilidade Dos CSS](#responsabilidade-dos-css)
+- [Como Adicionar Uma Nova Página](#como-adicionar-uma-nova-página)
+- [Como Adicionar Novos Componentes](#como-adicionar-novos-componentes)
+- [Sistema Flexbox](#sistema-flexbox)
+- [Observação De Estudo](#observação-de-estudo)
+
 ## Estrutura Principal
 
 - `public/index.html`: página inicial do site.
@@ -96,3 +114,5 @@ O menu, o cabeçalho, o formulário de reserva e a página Nossa História já u
 ## Observação De Estudo
 
 Os arquivos HTML, CSS e JavaScript possuem comentários explicando a função dos principais blocos do código.
+
+[Voltar ao topo](#cantina-da-nonna)

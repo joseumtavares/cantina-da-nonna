@@ -4,6 +4,37 @@ Este arquivo existe para manter a Cantina da Nonna organizada enquanto o projeto
 
 O projeto ainda está em fase de estudo e evolução. Por isso, clareza vale muito. Código simples, nomes bem escolhidos e comentários úteis ajudam mais do que soluções grandes que parecem bonitas, mas são difíceis de manter.
 
+
+## Navegação
+
+- [Visão geral do projeto](README.md)
+- [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](SUPABASE.md)
+- [Notas rápidas de continuidade](AGENTS.md)
+- [README do front-end](nona-front/README.md)
+
+## Nesta página
+
+- [Tecnologias do projeto](#tecnologias-do-projeto)
+- [Antes de alterar qualquer coisa](#antes-de-alterar-qualquer-coisa)
+- [Organização do back-end](#organização-do-back-end)
+- [Código limpo, sem mistério](#código-limpo-sem-mistério)
+- [Comentários no código](#comentários-no-código)
+- [Comentários didáticos](#comentários-didáticos)
+- [HTML](#html)
+- [CSS](#css)
+- [JavaScript](#javascript)
+- [Banco de dados](#banco-de-dados)
+- [Segurança](#segurança)
+- [Testes](#testes)
+- [Documentação](#documentação)
+- [Git e commits](#git-e-commits)
+- [Compatibilidade com as IDEs](#compatibilidade-com-as-ides)
+- [Quando criar novas dependências](#quando-criar-novas-dependências)
+- [Antes de finalizar uma alteração](#antes-de-finalizar-uma-alteração)
+- [Ideia principal](#ideia-principal)
+
 ## Tecnologias do projeto
 
 Hoje o projeto usa principalmente:
@@ -354,3 +385,5 @@ Faça uma última passada:
 O objetivo não é apenas fazer funcionar. O objetivo é construir um projeto que dê orgulho de abrir depois: organizado, seguro, legível e fácil de continuar.
 
 Cada mudança deve deixar o projeto um pouco melhor do que encontrou.
+
+[Voltar ao topo](#padrão-de-desenvolvimento-do-projeto)

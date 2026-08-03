@@ -2,6 +2,30 @@
 
 Este guia explica como usar o banco PostgreSQL do Supabase no back-end Spring Boot da Cantina da Nonna.
 
+
+## Navegação
+
+- [Visão geral do projeto](README.md)
+- [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](SUPABASE.md)
+- [Notas rápidas de continuidade](AGENTS.md)
+- [README do front-end](nona-front/README.md)
+
+## Nesta página
+
+- [1. Ideia da configuracao](#1-ideia-da-configuracao)
+- [2. Arquivos criados ou alterados](#2-arquivos-criados-ou-alterados)
+- [3. Como obter os dados no Supabase](#3-como-obter-os-dados-no-supabase)
+- [3.1. Qual metodo de conexao usar](#31-qual-metodo-de-conexao-usar)
+- [3.2. Dados do projeto atual](#32-dados-do-projeto-atual)
+- [4. Como configurar no arquivo .env local](#4-como-configurar-no-arquivo-env-local)
+- [5. Como configurar no IntelliJ IDEA](#5-como-configurar-no-intellij-idea)
+- [6. Como configurar no terminal PowerShell](#6-como-configurar-no-terminal-powershell)
+- [7. Como testar se conectou](#7-como-testar-se-conectou)
+- [8. Cuidados para publicacao](#8-cuidados-para-publicacao)
+- [9. Referencia oficial](#9-referencia-oficial)
+
 ## 1. Ideia da configuracao
 
 O projeto agora possui dois perfis de banco:
@@ -194,8 +218,6 @@ conexao com banco de dados efetuada com sucesso
 
 ## 9. Referencia oficial
 
-Documentacao oficial do Supabase sobre conexao com Postgres:
+- [Documentacao oficial do Supabase sobre conexao com Postgres](https://supabase.com/docs/guides/database/connecting-to-postgres)
 
-```text
-https://supabase.com/docs/guides/database/connecting-to-postgres
-```
+[Voltar ao topo](#configuracao-do-supabase---cantina-da-nonna)

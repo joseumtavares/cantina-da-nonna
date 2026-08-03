@@ -2,6 +2,36 @@
 
 Este documento reúne o contexto técnico da Cantina da Nonna para quem precisar continuar o projeto. O README apresenta a visão geral; aqui ficam os detalhes práticos de arquitetura, caminhos, banco, endpoints e cuidados de manutenção.
 
+
+## Navegação
+
+- [Visão geral do projeto](README.md)
+- [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](SUPABASE.md)
+- [Notas rápidas de continuidade](AGENTS.md)
+- [README do front-end](nona-front/README.md)
+
+## Nesta página
+
+- [1. Visão geral](#1-visão-geral)
+- [2. Repositório](#2-repositório)
+- [3. Estrutura atual](#3-estrutura-atual)
+- [4. Arquitetura do back-end](#4-arquitetura-do-back-end)
+- [5. Regras do back-end](#5-regras-do-back-end)
+- [6. Back-end implementado](#6-back-end-implementado)
+- [7. Banco de dados](#7-banco-de-dados)
+- [8. Front-end implementado](#8-front-end-implementado)
+- [9. Regras do front-end](#9-regras-do-front-end)
+- [10. Identidade visual](#10-identidade-visual)
+- [11. Como rodar](#11-como-rodar)
+- [12. Testes](#12-testes)
+- [13. Endpoints importantes](#13-endpoints-importantes)
+- [14. Segurança](#14-segurança)
+- [15. Próximas melhorias](#15-próximas-melhorias)
+- [16. Créditos e referência de aula](#16-créditos-e-referência-de-aula)
+- [17. Checklist antes de entregar mudanças](#17-checklist-antes-de-entregar-mudanças)
+
 ## 1. Visão geral
 
 A Cantina da Nonna é um projeto full stack de estudo, dividido em front-end estático e back-end Java com Spring Boot.
@@ -268,7 +298,7 @@ SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
 SUPABASE_DB_PASSWORD=SUA_SENHA_DO_BANCO
 ```
 
-Para detalhes da conexão em nuvem, consulte `SUPABASE.md`.
+Para detalhes da conexão em nuvem, consulte [SUPABASE.md](SUPABASE.md).
 
 Scripts MySQL/MariaDB:
 
@@ -493,11 +523,7 @@ Use `.env.example` para mostrar quais variáveis existem. Use `.env` local para 
 
 Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
 
-Agradecimento ao professor Gabriel Carvalho:
-
-```text
-https://github.com/GabrielBdeC
-```
+Agradecimento ao professor [Gabriel Carvalho](https://github.com/GabrielBdeC).
 
 Referência local da aula usada para alinhar parte do back-end:
 
@@ -520,3 +546,5 @@ C:\Users\Jose Tavares\Desktop\dev\SENAC_back
 [ ] O commit tem mensagem clara?
 [ ] Se necessário, foi feito push para origin/main?
 ```
+
+[Voltar ao topo](#documentação-técnica---cantina-da-nonna)

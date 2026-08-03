@@ -2,12 +2,22 @@
 
 Este arquivo é curto de propósito. Ele serve como primeiro lembrete antes de mexer na Cantina da Nonna, principalmente quando alguém abre o projeto depois de algum tempo sem acompanhar o histórico.
 
+
+## Navegação
+
+- [Visão geral do projeto](README.md)
+- [Padrão de desenvolvimento](PADRAO_DESENVOLVIMENTO.md)
+- [Documentação técnica](DOCUMENTACAO_TECNICA.md)
+- [Configuração do Supabase](SUPABASE.md)
+- [Notas rápidas de continuidade](AGENTS.md)
+- [README do front-end](nona-front/README.md)
+
 Antes de alterar código ou configuração, leia estes arquivos na raiz do repositório:
 
-1. `README.md`
-2. `PADRAO_DESENVOLVIMENTO.md`
-3. `DOCUMENTACAO_TECNICA.md`
-4. `SUPABASE.md`, quando a mudança envolver banco em nuvem
+1. [README principal](README.md)
+2. [PADRAO_DESENVOLVIMENTO.md](PADRAO_DESENVOLVIMENTO.md)
+3. [DOCUMENTACAO_TECNICA.md](DOCUMENTACAO_TECNICA.md)
+4. [SUPABASE.md](SUPABASE.md), quando a mudança envolver banco em nuvem
 
 Pontos que não devem ser esquecidos:
 
@@ -22,3 +32,5 @@ Pontos que não devem ser esquecidos:
 - Mantenha apenas um repositório Git na raiz `nonna`.
 
 A regra simples é: cada alteração deve deixar o projeto mais claro do que estava antes.
+
+[Voltar ao topo](#notas-rápidas-para-continuidade)
