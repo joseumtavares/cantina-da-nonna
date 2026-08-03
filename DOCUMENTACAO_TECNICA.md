@@ -1,27 +1,32 @@
-# Documentacao Tecnica - Cantina da Nonna
+# Documentação técnica - Cantina da Nonna
 
-Este arquivo foi criado para orientar outra LLM ou um programador pleno humano a continuar o projeto sem perder o contexto, os padroes ja definidos e as decisoes tomadas ate agora.
+Este documento reúne o contexto técnico da Cantina da Nonna para quem precisar continuar o projeto. O README apresenta a visão geral; aqui ficam os detalhes práticos de arquitetura, caminhos, banco, endpoints e cuidados de manutenção.
 
-## 1. Visao geral do projeto
+## 1. Visão geral
 
-O projeto `Cantina da Nonna` e um projeto full stack de estudo composto por:
+A Cantina da Nonna é um projeto full stack de estudo, dividido em front-end estático e back-end Java com Spring Boot.
 
-- `nona-front`: front-end estatico com HTML, CSS, JavaScript e Bootstrap.
-- `nona-back`: back-end Java com Spring Boot, Maven e MySQL/MariaDB via XAMPP.
+O objetivo é construir um site de restaurante com:
 
-Objetivo principal: construir um site de restaurante/cantina italiana com paginas publicas, cardapio, reservas, area administrativa inicial e API em Spring Boot.
+- página inicial;
+- página Nossa História;
+- cardápio completo;
+- formulário de reserva;
+- tela administrativa inicial para cadastro de produtos;
+- API para produtos e futuras reservas;
+- integração com banco local e Supabase.
 
-O codigo deve continuar didatico, comentado e compativel com Visual Studio Code e IntelliJ IDEA.
+O projeto deve continuar didático, organizado e simples de abrir tanto no Visual Studio Code quanto no IntelliJ IDEA.
 
-## 2. Estado atual do repositorio
+## 2. Repositório
 
-Repositorio local:
+Caminho local usado no desenvolvimento:
 
 ```text
 C:\Users\Jose Tavares\Desktop\dev\nonna
 ```
 
-Repositorio remoto:
+Repositório remoto:
 
 ```text
 https://github.com/joseumtavares/cantina-da-nonna
@@ -33,14 +38,15 @@ Branch principal:
 main
 ```
 
-Regra importante de Git:
+Regra importante: existe apenas um repositório Git, na raiz `nonna`. Não deve existir `.git` dentro de `nona-front` nem dentro de `nona-back`.
 
-- Existe somente um repositorio Git na raiz `nonna`.
-- Nao deve existir `.git` dentro de `nona-back` nem dentro de `nona-front`.
-- No IntelliJ, mantenha apenas o mapeamento VCS da pasta raiz `C:\Users\Jose Tavares\Desktop\dev\nonna`.
-- Se o IntelliJ mostrar `nona-back` como Git separado, remova esse mapeamento em Version Control > Directory Mappings.
+No IntelliJ IDEA, mantenha somente o mapeamento VCS da raiz:
 
-## 3. Estrutura atual de diretorios
+```text
+C:\Users\Jose Tavares\Desktop\dev\nonna
+```
+
+## 3. Estrutura atual
 
 ```text
 nonna/
@@ -76,37 +82,42 @@ nonna/
 |   |   `-- service/
 |   |-- src/main/resources/
 |   |   |-- application.properties
+|   |   |-- application-local.properties
+|   |   |-- application-supabase.properties
 |   |   `-- db/
 |   |       |-- schema.sql
-|   |       `-- data.sql
+|   |       |-- data.sql
+|   |       |-- schema-postgres.sql
+|   |       `-- data-postgres.sql
 |   `-- src/test/java/br/com/nona_back/
 |
-|-- README.md
+|-- AGENTS.md
 |-- DOCUMENTACAO_TECNICA.md
+|-- PADRAO_DESENVOLVIMENTO.md
+|-- SUPABASE.md
+|-- README.md
 `-- .gitignore
 ```
 
-## 4. Padrao arquitetural obrigatorio no back-end
+## 4. Arquitetura do back-end
 
-O back-end deve seguir o metodo MVC, adaptado para API REST com camada de servico e repositorio.
-
-Fluxo padrao:
+O back-end segue MVC com camada de serviço e repositório:
 
 ```text
 Controller -> Service -> Repository -> Banco de dados
      ^                         |
      |                         v
-   HTTP                     Model
+   HTTP                      Model
 ```
 
 Responsabilidades:
 
-- `controllers`: recebem as requisicoes HTTP e devolvem respostas.
-- `service`: concentram regras de negocio e coordenam o fluxo.
-- `repository`: executam SQL e acessam o banco de dados.
-- `model`: representam os dados usados pela aplicacao.
+- `controllers`: recebem requisições HTTP e devolvem respostas.
+- `service`: concentram regras de negócio e coordenam o fluxo.
+- `repository`: acessam o banco de dados com SQL e `JdbcTemplate`.
+- `model`: representam os dados usados pela aplicação.
 
-Regra para novas entidades:
+Ao criar uma nova funcionalidade, siga o mesmo desenho:
 
 ```text
 controllers/NomeController.java
@@ -124,19 +135,18 @@ repository/ReservaRepository.java
 model/Reserva.java
 ```
 
-## 5. Regras de codigo do back-end
+## 5. Regras do back-end
 
-- Manter o pacote base `br.com.nona_back`.
-- Usar `@RestController` para endpoints de API que retornam texto, JSON ou listas.
-- Usar `@Controller` apenas quando for necessario encaminhar/redirecionar paginas HTML.
-- Nao colocar SQL dentro de Controller.
-- Nao colocar regra de negocio dentro de Repository.
-- Preferir injecao por construtor, como ja esta sendo usado.
-- Manter comentarios didaticos nos blocos criados ou alterados.
-- Quando o codigo for baseado na aula, manter comentario com referencia ao professor/aula quando fizer sentido.
-- Quando uma melhoria for criada no projeto, identificar em comentario como melhoria criada por Jose Tavares.
+- Pacote base: `br.com.nona_back`.
+- Use `@RestController` para rotas de API que retornam texto, JSON ou listas.
+- Use `@Controller` apenas quando precisar encaminhar ou redirecionar páginas HTML.
+- Não coloque SQL em Controller.
+- Não coloque regra de negócio em Repository.
+- Prefira injeção de dependência via construtor.
+- Mantenha comentários quando eles explicarem decisão, regra, contexto de aula ou compatibilidade.
+- Preserve a comparação com a aula quando ela ajudar a entender a evolução do código.
 
-## 6. Back-end ja implementado
+## 6. Back-end implementado
 
 ### Classe principal
 
@@ -144,7 +154,7 @@ model/Reserva.java
 nona-back/src/main/java/br/com/nona_back/NonaBackApplication.java
 ```
 
-Responsavel por iniciar o Spring Boot.
+Inicia a aplicação Spring Boot.
 
 ### HealthCheckController
 
@@ -162,11 +172,11 @@ GET /health-check/database
 GET /health-check/status
 ```
 
-Objetivo:
+Função:
 
-- Confirmar se o servidor web esta online.
-- Confirmar se a conexao com o banco esta funcionando.
-- Informar qual servico falhou caso exista problema.
+- confirmar se o servidor web está online;
+- testar a conexão com o banco;
+- informar, em mensagem simples, qual parte falhou caso exista problema.
 
 ### ProdutoController
 
@@ -182,9 +192,7 @@ Endpoint:
 GET /produtos
 ```
 
-Objetivo:
-
-- Listar produtos do cardapio vindos do banco de dados.
+Função: listar produtos ativos do cardápio vindos do banco.
 
 ### FrontendController
 
@@ -194,41 +202,46 @@ Arquivo:
 nona-back/src/main/java/br/com/nona_back/controllers/FrontendController.java
 ```
 
-Objetivo:
+Função:
 
-- Permitir abrir o front-end pela mesma porta do Spring Boot.
-- Redirecionar caminhos antigos usados durante o estudo para a raiz do site.
+- servir o front-end pela mesma porta do Spring Boot;
+- permitir acesso pelo caminho raiz `/`;
+- redirecionar caminhos antigos usados durante o estudo para evitar quebra de CSS e imagens.
 
-URLs principais:
+URLs úteis:
 
 ```text
 http://localhost:8080/
 http://localhost:8080/dev/nonna/nona-front
 ```
 
-Observacao importante:
+Não use `/public` na URL do navegador. A pasta `nona-front/public` vira a raiz do site quando o Spring Boot serve os arquivos estáticos.
 
-- Nao usar `/public` no navegador.
-- A pasta `nona-front/public` vira a raiz do site quando servida pelo Spring Boot.
+## 7. Banco de dados
 
-## 7. Configuracao do banco de dados
+O projeto trabalha com dois perfis:
 
-Banco local usado no XAMPP:
+```text
+local     -> XAMPP / MySQL ou MariaDB
+supabase  -> Supabase / PostgreSQL
+```
+
+Banco local:
 
 ```text
 nona-db
 ```
 
-Configuracao padrao:
+Configuração local padrão:
 
 ```text
 host: 127.0.0.1
 porta: 3306
-usuario: root
+usuário: root
 senha: vazia
 ```
 
-Arquivos de configuracao:
+Arquivos de configuração:
 
 ```text
 nona-back/src/main/resources/application.properties
@@ -236,16 +249,9 @@ nona-back/src/main/resources/application-local.properties
 nona-back/src/main/resources/application-supabase.properties
 ```
 
-Perfis disponiveis:
+O perfil `local` é o padrão para estudo no computador. O perfil `supabase` deve ser ativado por variável de ambiente quando for usar o banco em nuvem.
 
-```text
-local     -> XAMPP / MySQL ou MariaDB
-supabase  -> Supabase / PostgreSQL
-```
-
-O perfil `local` continua sendo o padrao para estudo no computador. O perfil `supabase` deve ser ativado com variaveis de ambiente quando quisermos usar o banco em nuvem.
-
-Configuracao local usa variaveis de ambiente com valores padrao:
+Exemplo de configuração local com valores padrão:
 
 ```properties
 spring.datasource.url=${DB_URL:jdbc:mysql://127.0.0.1:3306/nona-db?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true}
@@ -253,7 +259,7 @@ spring.datasource.username=${DB_USERNAME:root}
 spring.datasource.password=${DB_PASSWORD:}
 ```
 
-Configuracao Supabase usa variaveis obrigatorias, sem senha no Git:
+Exemplo de variáveis para Supabase, sem senha real no Git:
 
 ```properties
 SPRING_PROFILES_ACTIVE=supabase
@@ -262,52 +268,37 @@ SUPABASE_DB_USERNAME=postgres.[PROJECT_REF]
 SUPABASE_DB_PASSWORD=SUA_SENHA_DO_BANCO
 ```
 
-Para detalhes, consulte:
+Para detalhes da conexão em nuvem, consulte `SUPABASE.md`.
 
-```text
-SUPABASE.md
-```
-
-Regra para novas tabelas:
-
-No perfil local MySQL/MariaDB, manter o padrao da aula:
-
-```sql
-id CHAR(36) PRIMARY KEY DEFAULT (UUID())
-```
-
-No perfil Supabase/PostgreSQL, usar o equivalente correto para PostgreSQL:
-
-```sql
-id UUID PRIMARY KEY DEFAULT gen_random_uuid()
-```
-
-Scripts automaticos do perfil local MySQL/MariaDB:
+Scripts MySQL/MariaDB:
 
 ```text
 nona-back/src/main/resources/db/schema.sql
 nona-back/src/main/resources/db/data.sql
 ```
 
-Scripts automaticos do perfil Supabase/PostgreSQL:
+Scripts PostgreSQL/Supabase:
 
 ```text
 nona-back/src/main/resources/db/schema-postgres.sql
 nona-back/src/main/resources/db/data-postgres.sql
 ```
 
-Pasta de referencia didatica:
+A pasta `nona-back/migration` fica como referência didática da aula. Os scripts executados automaticamente pelo Spring Boot ficam em `src/main/resources/db`.
 
-```text
-nona-back/migration
+Padrão de ID no MySQL/MariaDB:
+
+```sql
+id CHAR(36) PRIMARY KEY DEFAULT (UUID())
 ```
 
-Observacao:
+Equivalente no Supabase/PostgreSQL:
 
-- `schema.sql` e `data.sql` sao executados automaticamente pelo Spring Boot porque `spring.sql.init.mode=always` esta ativo.
-- Cuidado ao alterar esses arquivos, pois eles impactam a inicializacao da aplicacao.
+```sql
+id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+```
 
-## 8. Front-end ja implementado
+## 8. Front-end implementado
 
 Pasta principal:
 
@@ -315,7 +306,7 @@ Pasta principal:
 nona-front/public
 ```
 
-Paginas atuais:
+Páginas atuais:
 
 ```text
 index.html
@@ -325,16 +316,14 @@ pages/reserva.html
 pages/cadastro-produtos.html
 ```
 
-Recursos principais:
+Recursos já usados:
 
-- Site institucional da Cantina da Nonna.
-- Cardapio completo.
-- Pagina Nossa Historia.
-- Pagina Reserva com formulario visual.
-- Pagina Cadastro de Produtos como tela administrativa visual inicial.
-- Mapa no rodape usando Leaflet.js e OpenStreetMap.
-- Bootstrap para layout responsivo e componentes.
-- CSS proprio em `theme.css` e `variables.css`.
+- HTML semântico;
+- Bootstrap para grid, navbar, cards, botões e formulários;
+- CSS próprio em `variables.css` e `theme.css`;
+- mapa no rodapé com Leaflet e OpenStreetMap;
+- imagens organizadas em `public/images`;
+- página administrativa visual para cadastro de produtos.
 
 URLs pelo Spring Boot:
 
@@ -346,100 +335,112 @@ http://localhost:8080/pages/reserva.html
 http://localhost:8080/pages/cadastro-produtos.html
 ```
 
-## 9. Regras de codigo do front-end
+## 9. Regras do front-end
 
-- Manter HTML semantico com `header`, `nav`, `main` e `footer` nas paginas publicas.
-- Manter comentarios didaticos nos blocos principais.
-- Usar Bootstrap para grid, container, cards, navbar e responsividade.
-- Usar CSS proprio apenas para identidade visual, ajustes e personalizacoes.
-- Nao criar estilos soltos dentro do HTML se puderem ir para CSS.
-- Manter imagens dentro de `nona-front/public/images`.
-- Manter caminhos relativos considerando que `public` e a raiz servida pelo navegador.
-- Nao usar links com `/public` nas paginas.
+- Use `header`, `nav`, `main` e `footer` nas páginas públicas.
+- Use comentários apenas quando ajudarem a entender estrutura, intenção ou ponto futuro de integração.
+- Use Bootstrap para grid, containers, cards, navbar e responsividade.
+- Deixe identidade visual e ajustes próprios nos arquivos CSS.
+- Não coloque estilos soltos no HTML quando puderem ficar no CSS.
+- Mantenha imagens dentro de `nona-front/public/images`.
+- Considere `public` como raiz servida pelo navegador.
+- Não use `/public` nos links das páginas.
 
-Exemplo correto de imagem:
+Exemplo correto de imagem na home:
 
 ```html
 <img src="images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
 ```
 
-Exemplo incorreto quando servido pelo Spring Boot:
+Exemplo correto em página dentro de `pages`:
 
 ```html
-<img src="public/images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
+<img src="../images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
 ```
 
-## 10. Padrao visual
+## 10. Identidade visual
 
-Identidade visual definida no CSS:
-
-- Vinho para identidade, menu e titulos.
-- Creme e creme claro para fundos.
-- Marrom/madeira para textos e contraste.
-- Terracota e laranja para botoes e chamadas.
-- Dourado e verde manjericao para detalhes.
-
-Fonte inicial usada no projeto:
+A identidade visual fica concentrada em:
 
 ```text
-Verdana
+nona-front/public/css/variables.css
+nona-front/public/css/theme.css
 ```
 
-Bootstrap esta sendo usado para modernizar:
+Direção visual atual:
 
-- Containers.
-- Grid responsivo.
-- Cards arredondados.
-- Navbar responsiva.
-- Botoes harmonicos.
+- vinho para identidade, menu e títulos;
+- creme e creme claro para fundos;
+- marrom/madeira para texto e contraste;
+- terracota e laranja para botões e chamadas;
+- dourado e verde manjericão para detalhes.
 
-## 11. Como rodar o projeto
-
-### Pelo IntelliJ IDEA
-
-1. Abrir a pasta `nona-back` ou a raiz `nonna`.
-2. Garantir que o XAMPP/MySQL esteja rodando na porta `3306`.
-3. Rodar `NonaBackApplication`.
-4. Abrir no navegador:
+Fontes atuais:
 
 ```text
-http://localhost:8080/
+Playfair Display -> títulos
+Mulish           -> textos e navegação
 ```
 
-### Pelo terminal
+Bootstrap está sendo usado para manter:
+
+- containers alinhados;
+- grid responsivo;
+- cards arredondados;
+- navbar responsiva;
+- botões consistentes.
+
+## 11. Como rodar
+
+Pelo terminal:
 
 ```powershell
 cd C:\Users\Jose Tavares\Desktop\dev\nonna\nona-back
 .\mvnw.cmd spring-boot:run
 ```
 
-Depois abrir:
+Depois abra:
 
 ```text
 http://localhost:8080/
 ```
 
-## 12. Como testar
+Pelo IntelliJ IDEA:
 
-Rodar:
+1. Abra `nona-back` ou a raiz `nonna`.
+2. Garanta que o banco escolhido esteja disponível.
+3. Rode `NonaBackApplication`.
+4. Acesse `http://localhost:8080/`.
+
+## 12. Testes
+
+Comando padrão:
 
 ```powershell
 cd C:\Users\Jose Tavares\Desktop\dev\nonna\nona-back
 .\mvnw.cmd test
 ```
 
-Estado conhecido:
+Forçando Supabase:
+
+```powershell
+.\mvnw.cmd "-Dspring.profiles.active=supabase" test
+```
+
+Forçando banco local:
+
+```powershell
+.\mvnw.cmd "-Dspring.profiles.active=local" test
+```
+
+Estado conhecido no momento desta documentação:
 
 ```text
 6 testes executados
 0 falhas
 ```
 
-Regra para novas funcionalidades:
-
-- Novo endpoint deve ter teste quando alterar comportamento do back-end.
-- Nova regra de negocio deve ser testada na camada adequada.
-- Antes de commit/push, rodar `mvnw.cmd test`.
+Novas rotas e novas regras de negócio devem receber testes quando alterarem comportamento do back-end.
 
 ## 13. Endpoints importantes
 
@@ -462,59 +463,60 @@ GET /health-check/status
 GET /produtos
 ```
 
-## 14. Creditos e referencias
+## 14. Segurança
 
-Projeto desenvolvido por Jose Tavares durante os estudos de desenvolvimento full stack.
+Nunca versionar:
 
-Creditos ao professor Gabriel Carvalho:
+- senhas reais;
+- tokens;
+- chaves de API;
+- arquivos `.env` com credenciais;
+- certificados privados.
+
+Use `.env.example` para mostrar quais variáveis existem. Use `.env` local para valores reais, mantendo o arquivo fora do Git.
+
+## 15. Próximas melhorias
+
+- Integrar o front-end com a API `/produtos`.
+- Criar CRUD completo de produtos.
+- Criar API para reservas.
+- Salvar reservas no banco.
+- Criar dashboard administrativo.
+- Implementar login e logout reais.
+- Fazer upload de imagens dos produtos.
+- Usar Supabase Storage para imagens.
+- Preparar deploy do front-end na Vercel.
+- Configurar ambiente de produção com variáveis seguras.
+- Criar pipeline de testes e deploy.
+
+## 16. Créditos e referência de aula
+
+Projeto desenvolvido por José Tavares durante os estudos de desenvolvimento full stack.
+
+Agradecimento ao professor Gabriel Carvalho:
 
 ```text
 https://github.com/GabrielBdeC
 ```
 
-Referencia da aula usada para alinhar parte do back-end:
+Referência local da aula usada para alinhar parte do back-end:
 
 ```text
 C:\Users\Jose Tavares\Desktop\dev\SENAC_back
 ```
 
-## 15. Futuras melhorias planejadas
-
-- Integrar o front-end com a API real `/produtos`.
-- Criar CRUD completo de produtos.
-- Criar API e banco para reservas.
-- Criar dashboard administrativo.
-- Implementar login/autenticacao para area administrativa.
-- Fazer upload de imagens dos produtos.
-- Evoluir a integracao com Supabase para autenticacao e storage de imagens.
-- Publicar o front-end na Vercel.
-- Configurar ambiente de producao com variaveis seguras.
-- Criar pipeline de testes e deploy.
-
-## 16. Cuidados para a proxima pessoa ou LLM
-
-- Nao recriar repositorios Git dentro de `nona-back` ou `nona-front`.
-- Nao remover comentarios didaticos sem necessidade.
-- Nao trocar a arquitetura MVC sem alinhar antes.
-- Nao colocar credenciais reais no Git.
-- Nao alterar a porta do banco ou nome do banco sem atualizar a documentacao.
-- Nao usar `/public` nos links do navegador.
-- Nao mover imagens sem ajustar os caminhos HTML/CSS.
-- Manter compatibilidade com IntelliJ IDEA e Visual Studio Code.
-- Se adicionar dependencia Java, registrar no `pom.xml`.
-- Se adicionar dependencia front-end via CDN, comentar no HTML o motivo do uso.
-
-## 17. Checklist antes de entregar mudancas
+## 17. Checklist antes de entregar mudanças
 
 ```text
 [ ] O projeto compila?
-[ ] Os testes Maven passam?
+[ ] Os testes Maven necessários foram executados?
 [ ] O front abre em http://localhost:8080/ ?
 [ ] O endpoint /health-check/status responde?
 [ ] O endpoint /produtos responde?
 [ ] Os caminhos das imagens continuam funcionando?
 [ ] A estrutura MVC foi respeitada?
-[ ] O README ou esta documentacao precisam ser atualizados?
-[ ] Foi feito commit com mensagem clara?
-[ ] Se necessario, foi feito push para origin/main?
+[ ] Nenhuma credencial real entrou no Git?
+[ ] README, SUPABASE ou esta documentação precisam ser atualizados?
+[ ] O commit tem mensagem clara?
+[ ] Se necessário, foi feito push para origin/main?
 ```
