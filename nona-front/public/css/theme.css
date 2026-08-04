@@ -254,9 +254,3 @@ footer a:focus {
   overflow: hidden;
   cursor: pointer;
 }
-
-/* Link do popup do mapa, alinhado com a cor principal da marca. */
-.link-popup-mapa {
-  color: var(--color-primary);
-  font-weight: bold;
-}

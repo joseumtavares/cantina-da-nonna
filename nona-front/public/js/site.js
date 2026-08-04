@@ -33,11 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
   /*
     Ponto de expansão futura: integração com o back-end
     ---------------------------------------------------
-    Quando a API estiver pronta, esta área pode buscar produtos reais e montar
+    Quando a API estiver integrada ao front, esta area pode buscar produtos reais e montar
     os cards dinamicamente. Por enquanto, o cardápio continua escrito no HTML
     para manter a etapa de front-end simples e fácil de estudar.
 
-      fetch("/api/produtos?categoria=pizzas")
+      fetch("/produtos")
         .then(function (resposta) { return resposta.json(); })
         .then(function (produtos) { montarCardsDeProdutos(produtos); });
   */

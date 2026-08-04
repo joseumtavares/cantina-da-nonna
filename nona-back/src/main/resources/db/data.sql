@@ -4,10 +4,10 @@
 -- ==========================================================
 -- DADOS INICIAIS - CANTINA DA NONNA
 -- Este arquivo insere categorias e produtos já exibidos no HTML atual.
--- INSERT IGNORE evita duplicidade quando a aplicação é reiniciada durante os estudos.
+-- INSERT IGNORE evita duplicidade quando a aplicacao e reiniciada durante os estudos.
+-- O banco local ja vem selecionado pela URL JDBC configurada em application-local.properties.
 -- ==========================================================
 
-USE `nona-db`;
 SET NAMES utf8mb4;
 
 -- Categorias principais que organizam o cardápio.

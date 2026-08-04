@@ -1,13 +1,13 @@
 /*
   mapa.js
   ---------------------------------------------------------------------------
-  Monta o minimapa do rodapé com Leaflet e OpenStreetMap. O mapa fica dentro
-  da página, mas o clique em uma área livre abre a rota no Google Maps para
-  facilitar a navegação do cliente.
+  Monta o minimapa do rodape com Leaflet e OpenStreetMap. O mapa fica dentro
+  da pagina, mas o clique em uma area livre abre a rota no Google Maps para
+  facilitar a navegacao do cliente sem poluir o rodape com botoes extras.
 */
 
-/* Endereço usado tanto no popup quanto nos links de rota. */
-const enderecoCantina = "Rua Renata Costa 945, Centro, Balneário Arroio do Silva, SC";
+/* Endereco usado tanto no popup quanto no link de rota. */
+const enderecoCantina = "Rua Renata Costa 945, Centro, Balneario Arroio do Silva, SC";
 
 /* Coordenadas da Cantina da Nonna, usadas para centralizar mapa e marcador. */
 const latitudeCantina = -28.98603;
@@ -16,21 +16,20 @@ const longitudeCantina = -49.41643;
 /* Leaflet espera coordenadas no formato [latitude, longitude]. */
 const coordenadasCantina = [latitudeCantina, longitudeCantina];
 
-/* Links externos são montados por JavaScript para manter o HTML mais limpo. */
+/* Link externo montado por JavaScript para manter o HTML mais limpo. */
 const urlGoogleMaps = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(enderecoCantina);
-const urlWaze = "https://waze.com/ul?q=" + encodeURIComponent(enderecoCantina) + "&navigate=yes";
 
-/* Só tentamos montar o mapa depois que o HTML já está disponível no navegador. */
+/* So tentamos montar o mapa depois que o HTML ja esta disponivel no navegador. */
 document.addEventListener("DOMContentLoaded", function () {
-  /* Algumas páginas administrativas não têm mapa; nesse caso o script termina sem erro. */
+  /* Algumas paginas administrativas nao tem mapa; nesse caso o script termina sem erro. */
   const elementoMapa = document.getElementById("mapa-rodape");
 
-  /* Também encerramos se o Leaflet não carregou, evitando quebrar o restante da página. */
+  /* Tambem encerramos se o Leaflet nao carregou, evitando quebrar o restante da pagina. */
   if (!elementoMapa || typeof L === "undefined") {
     return;
   }
 
-  /* Cria o mapa já centralizado no endereço da cantina. */
+  /* Cria o mapa ja centralizado no endereco da cantina. */
   const mapa = L.map("mapa-rodape").setView(coordenadasCantina, 16);
 
   /* OpenStreetMap fornece os blocos visuais que formam o mapa. */
@@ -39,19 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(mapa);
 
-  /* Marcador fixo no endereço da Cantina da Nonna. */
+  /* Marcador fixo no endereco da Cantina da Nonna. */
   const marcador = L.marker(coordenadasCantina, {
     title: "Cantina da Nonna",
     alt: "Marcador da Cantina da Nonna"
   }).addTo(mapa);
 
-  /* Popup com endereço e atalhos de GPS para quem clicar diretamente no marcador. */
+  /* Popup simples: mostra o nome e o endereco, sem links visiveis de GPS. */
   marcador.bindPopup(
     '<strong>Cantina da Nonna</strong><br>' +
     'Rua Renata Costa Nº 945 - Centro<br>' +
-    '<a class="link-popup-mapa" href="' + urlGoogleMaps + '" target="_blank" rel="noopener noreferrer">Google Maps</a>' +
-    ' | ' +
-    '<a class="link-popup-mapa" href="' + urlWaze + '" target="_blank" rel="noopener noreferrer">Waze</a>'
+    'Balneario Arroio do Silva - SC'
   );
 
   /* Clique no marcador mostra o popup; clique no restante do mapa abre a rota. */

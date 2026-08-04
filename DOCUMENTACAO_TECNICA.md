@@ -228,28 +228,27 @@ GET /produtos
 
 Função: listar produtos ativos do cardápio vindos do banco.
 
-### FrontendController
+### Front-end estatico
 
-Arquivo:
+O front-end nao precisa de um controller proprio para abrir a pagina inicial. O Spring Boot entrega os arquivos de `nona-front/public` pela configuracao abaixo:
 
 ```text
-nona-back/src/main/java/br/com/nona_back/controllers/FrontendController.java
+nona-back/src/main/resources/application.properties
 ```
 
-Função:
+Funcao:
 
 - servir o front-end pela mesma porta do Spring Boot;
 - permitir acesso pelo caminho raiz `/`;
-- redirecionar caminhos antigos usados durante o estudo para evitar quebra de CSS e imagens.
+- evitar URLs baseadas no caminho fisico das pastas do computador.
 
-URLs úteis:
+URL util:
 
 ```text
 http://localhost:8080/
-http://localhost:8080/dev/nonna/nona-front
 ```
 
-Não use `/public` na URL do navegador. A pasta `nona-front/public` vira a raiz do site quando o Spring Boot serve os arquivos estáticos.
+Nao use `/public` nem caminhos baseados na pasta fisica do computador na URL do navegador. A pasta `nona-front/public` vira a raiz do site quando o Spring Boot serve os arquivos estaticos.
 
 ## 7. Banco de dados
 

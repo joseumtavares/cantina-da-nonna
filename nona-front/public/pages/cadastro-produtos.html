@@ -30,7 +30,7 @@
 
   <body>
     <!--
-      Cabeçalho e navegação principal.
+      Cabeçalho e navegação administrativa.
       O Bootstrap controla o menu recolhido no celular; quando o projeto ganhar templates,
       este bloco deve virar um trecho reutilizável para evitar cópia entre páginas.
     -->
@@ -38,8 +38,8 @@
       <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow" data-bs-theme="dark">
         <!-- container mantém a navbar alinhada com a largura das demais seções. -->
         <div class="container">
-          <!-- Link de marca da navbar: junta logotipo, subtítulo e nome da cantina. -->
-          <a class="navbar-brand d-flex align-items-center" href="../index.html">
+          <!-- Link de marca da navbar administrativa: junta logotipo, subtitulo e nome da cantina. -->
+          <a class="navbar-brand d-flex align-items-center" href="cadastro-produtos.html">
             <img class="marca-logo" src="../images/logo/cantina-da-nonna-logo.png" alt="Logotipo da Cantina da Nonna">
             <span class="marca-texto">
               <span class="marca-detalhe d-block">Cantina italiana artesanal</span>
@@ -55,31 +55,15 @@
           <!-- Menu principal: recolhe no celular e fica expandido em telas maiores. -->
           <div class="collapse navbar-collapse" id="menuPrincipal">
             <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-2 py-2 py-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="../index.html">Início</a>
-          </li>
+              <!-- Link atual da area administrativa; futuras telas do dashboard entram nesta mesma navegacao. -->
+              <li class="nav-item">
+                <a class="nav-link" href="cadastro-produtos.html" aria-current="page">Cadastro de produtos</a>
+              </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="nossa-historia.html">Nossa História</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="cardapio.html">Cardápio</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="btn btn-cta-reserva" href="reserva.html">Faça sua reserva</a>
-          </li>
-
-          <!-- Atalho da área administrativa para o cadastro visual de produtos. -->
-          <li class="nav-item">
-            <a class="nav-link" href="cadastro-produtos.html" aria-current="page">Cadastro de produtos</a>
-          </li>
-
-          <!-- Logout ainda é visual; quando houver autenticação, este botão chamará a rota de saída do back-end. -->
-          <li class="nav-item">
-            <a class="btn btn-cta-logout" href="#">Logout</a>
-          </li>
+              <!-- Logout ainda e visual; quando houver autenticacao, este botao chamara a rota de saida do back-end. -->
+              <li class="nav-item">
+                <a class="btn btn-cta-logout" href="#">Logout</a>
+              </li>
             </ul>
           </div>
         </div>

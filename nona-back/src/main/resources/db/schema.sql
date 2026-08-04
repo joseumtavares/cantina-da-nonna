@@ -7,14 +7,8 @@
 -- O Spring Boot executa o script na inicialização para facilitar os estudos locais.
 -- ==========================================================
 
--- Cria o banco local se ele ainda não existir.
--- Como o nome tem hífen, as crases evitam erro de sintaxe no MySQL/MariaDB.
-CREATE DATABASE IF NOT EXISTS `nona-db`
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
--- Seleciona o banco que receberá as tabelas abaixo.
-USE `nona-db`;
+-- O banco local nona-db deve existir antes da aplicacao iniciar.
+-- Para criar manualmente, use nona-back/migration/0-create_db.sql.
 
 -- Mantém suporte a acentos, cedilha e símbolos como R$ nos dados do cardápio.
 SET NAMES utf8mb4;

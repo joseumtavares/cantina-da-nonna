@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 // Criado por Jose Tavares, tomando como referência o HealthCheckController da aula.
-// A versão da aula confirmava apenas que o servidor subiu; aqui também verificamos o banco,
+// Mantemos o liveness simples para confirmar a aplicação web e deixamos o banco em rotas próprias,
 // porque isso ajuda a enxergar rapidamente qual parte do ambiente está funcionando.
 @RestController
 public class HealthCheckController {
@@ -29,10 +29,10 @@ public class HealthCheckController {
     //     return "OK";
     // }
 
-    // A rota principal resume servidor web e banco em uma única resposta.
+    // Liveness confirma apenas que a aplicação web respondeu; banco fica em /database e /status.
     @GetMapping("/health-check/liveness")
     public ResponseEntity<String> liveness() {
-        return status();
+        return ResponseEntity.ok(SERVIDOR_WEB_ONLINE);
     }
 
     // Rota útil quando queremos testar apenas a conexão com o banco.

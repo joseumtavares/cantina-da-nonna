@@ -31,12 +31,12 @@ class HealthCheckControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // A rota de liveness agora informa servidor web e banco na mesma mensagem.
+    // A rota de liveness confirma apenas que o servidor web respondeu.
     @Test
-    void shouldReturnServidorWebAndDatabaseOnlineWhenLivenessEndpointIsCalled() throws Exception {
+    void shouldReturnServidorWebOnlineWhenLivenessEndpointIsCalled() throws Exception {
         mockMvc.perform(get("/health-check/liveness"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Servidor Web Online | conexao com banco de dados efetuada com sucesso"));
+                .andExpect(content().string("Servidor Web Online"));
     }
 
     // Valida o endpoint dedicado ao banco, independentemente de ser MySQL local ou Supabase.

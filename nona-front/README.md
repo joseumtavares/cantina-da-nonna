@@ -1,120 +1,107 @@
 # Cantina da Nonna
 
-Projeto front-end em HTML, CSS e JavaScript para estudo de estrutura semântica, organização profissional de arquivos e preparação para crescimento Full Stack.
+Projeto front-end em HTML, CSS e JavaScript para estudo de estrutura semantica, organizacao profissional de arquivos e preparacao para crescimento Full Stack.
 
-
-## Navegação
+## Navegacao
 
 - [README principal](../README.md)
-- [Padrão de desenvolvimento](../PADRAO_DESENVOLVIMENTO.md)
-- [Configuração do ambiente](../CONFIGURACAO_AMBIENTE.md)
+- [Padrao de desenvolvimento](../PADRAO_DESENVOLVIMENTO.md)
+- [Configuracao do ambiente](../CONFIGURACAO_AMBIENTE.md)
 - [Materiais de estudo](../MATERIAIS_ESTUDO.md)
-- [Documentação técnica](../DOCUMENTACAO_TECNICA.md)
-- [Configuração do Supabase](../SUPABASE.md)
-- [Notas rápidas de continuidade](../AGENTS.md)
+- [Documentacao tecnica](../DOCUMENTACAO_TECNICA.md)
+- [Configuracao do Supabase](../SUPABASE.md)
+- [Notas rapidas de continuidade](../AGENTS.md)
 
-## Nesta página
+## Nesta pagina
 
-- [Estrutura Principal](#estrutura-principal)
-- [Responsabilidade Dos CSS](#responsabilidade-dos-css)
-- [Como Adicionar Uma Nova Página](#como-adicionar-uma-nova-página)
-- [Como Adicionar Novos Componentes](#como-adicionar-novos-componentes)
-- [Sistema Flexbox](#sistema-flexbox)
-- [Observação De Estudo](#observação-de-estudo)
+- [Estrutura principal](#estrutura-principal)
+- [Responsabilidade dos CSS](#responsabilidade-dos-css)
+- [Como adicionar uma nova pagina](#como-adicionar-uma-nova-pagina)
+- [Como adicionar novos componentes](#como-adicionar-novos-componentes)
+- [Flexbox e Bootstrap](#flexbox-e-bootstrap)
+- [Observacao de estudo](#observacao-de-estudo)
 
-## Estrutura Principal
+## Estrutura principal
 
-- `public/index.html`: página inicial do site.
-- `public/pages/`: páginas internas do projeto.
-- `public/pages/nossa-historia.html`: página institucional com a história da Cantina da Nonna.
-- `public/pages/cadastro-produtos.html`: página front-end para cadastro visual de produtos do cardápio.
-- `public/css/`: estilos organizados por responsabilidade.
-- `public/css/pages/`: estilos específicos de cada página.
+- `public/index.html`: pagina inicial do site.
+- `public/pages/`: paginas internas do projeto.
+- `public/pages/nossa-historia.html`: pagina institucional com a historia da Cantina da Nonna.
+- `public/pages/cardapio.html`: cardapio completo com entradas, massas, pizzas, sobremesas e bebidas.
+- `public/pages/reserva.html`: formulario visual para reserva de mesa.
+- `public/pages/cadastro-produtos.html`: pagina administrativa visual para cadastro de produtos.
+- `public/css/`: estilos do projeto.
+- `public/css/variables.css`: cores, fontes, medidas e variaveis integradas ao Bootstrap.
+- `public/css/theme.css`: identidade visual, navbar, cards, formularios, rodape e mapa.
 - `public/images/`: imagens organizadas por categoria.
-- `public/favicon/`: ícone exibido na aba do navegador.
+- `public/favicon/`: icone exibido na aba do navegador.
 - `public/js/`: scripts JavaScript do projeto.
 
-## Responsabilidade Dos CSS
+## Responsabilidade dos CSS
 
-- `reset.css`: normaliza comportamentos básicos do navegador.
-- `variables.css`: guarda cores, fontes, tamanhos e medidas globais.
-- `global.css`: estilos globais usados em todas as páginas.
-- `components.css`: componentes reutilizáveis, como cabeçalho, menu, botões, cards, tabelas, formulário e rodapé.
-- `layout.css`: estrutura geral, containers, seções e responsividade.
-- `pages/*.css`: estilos exclusivos de cada página.
+O front-end atual usa dois arquivos CSS proprios:
 
-## Como Adicionar Uma Nova Página
+- `variables.css`: guarda a base visual da marca, como paleta, fontes, tamanhos, sombras e variaveis `--bs-*` do Bootstrap.
+- `theme.css`: aplica o visual da Cantina da Nonna sobre os componentes do Bootstrap e sobre blocos proprios, como mapa, hero, cards e formularios.
+
+O Bootstrap continua carregado por CDN em cada pagina HTML. Ele fornece grid, containers, navbar responsiva, botoes, cards, formularios e utilitarios de Flexbox.
+
+## Como adicionar uma nova pagina
 
 1. Crie o arquivo HTML dentro de `public/pages/`.
-2. Crie o CSS específico em `public/css/pages/nome-da-pagina.css`.
-3. No HTML, carregue os CSS nesta ordem:
+2. Use o mesmo bloco de `<head>` das paginas existentes.
+3. Carregue Bootstrap antes dos CSS do projeto.
+4. Carregue os CSS proprios nesta ordem:
 
 ```html
-<link rel="stylesheet" href="../css/reset.css">
 <link rel="stylesheet" href="../css/variables.css">
-<link rel="stylesheet" href="../css/global.css">
-<link rel="stylesheet" href="../css/components.css">
-<link rel="stylesheet" href="../css/layout.css">
-<link rel="stylesheet" href="../css/pages/nome-da-pagina.css">
+<link rel="stylesheet" href="../css/theme.css">
 ```
 
-## Como Adicionar Novos Componentes
+5. Se a pagina tiver o mapa no rodape, carregue tambem o CSS e o JS do Leaflet, seguindo o modelo das paginas publicas.
+6. Ajuste os caminhos relativos: paginas dentro de `public/pages/` usam `../css`, `../js` e `../images`.
 
-Componentes reutilizados em mais de uma página devem ficar em `public/css/components.css`.
+## Como adicionar novos componentes
+
+Componentes usados em mais de uma pagina devem ser estilizados em `public/css/theme.css` enquanto o projeto ainda esta pequeno.
 
 Exemplos:
 
-- botões;
+- botoes;
 - cards;
 - menus;
-- tabelas;
-- formulários;
-- rodapé;
-- cabeçalho.
+- formularios;
+- rodape;
+- cabecalho;
+- mapa.
 
-Estilos exclusivos de uma única página devem ficar em `public/css/pages/`.
+Se o CSS crescer muito, a proxima etapa natural sera separar novamente por responsabilidade, mas somente quando isso reduzir confusao de verdade.
 
-## Sistema Flexbox
+## Flexbox e Bootstrap
 
-O projeto possui classes reutilizáveis de Flexbox em `public/css/layout.css`.
+O projeto usa principalmente as classes prontas do Bootstrap para Flexbox e Grid.
 
-Use no HTML quando precisar controlar alinhamento sem criar um novo CSS:
+Exemplo:
 
 ```html
-<section class="flex flex-wrap justify-between items-center gap-md">
-  <div class="flex-1">Conteúdo 1</div>
-  <div class="flex-none">Conteúdo 2</div>
+<section class="row align-items-center g-4">
+  <div class="col-12 col-lg-6">Conteudo 1</div>
+  <div class="col-12 col-lg-6">Conteudo 2</div>
 </section>
 ```
 
-Classes de container:
+Classes usadas com frequencia:
 
-- `flex`: ativa Flexbox.
-- `inline-flex`: ativa Flexbox em elemento inline.
-- `flex-row`: organiza itens em linha.
+- `d-flex`: ativa Flexbox.
 - `flex-column`: organiza itens em coluna.
 - `flex-wrap`: permite quebra de linha.
-- `flex-nowrap`: impede quebra de linha.
-- `justify-start`, `justify-center`, `justify-end`, `justify-between`, `justify-around`, `justify-evenly`: controlam alinhamento no eixo principal.
-- `items-start`, `items-center`, `items-end`, `items-stretch`, `items-baseline`: controlam alinhamento no eixo cruzado.
-- `content-start`, `content-center`, `content-between`: controlam múltiplas linhas flexíveis.
-- `gap-xs`, `gap-sm`, `gap-md`, `gap-lg`, `gap-xl`: controlam espaçamento entre itens.
+- `justify-content-center`: centraliza no eixo principal.
+- `justify-content-between`: separa itens nas extremidades.
+- `align-items-center`: centraliza no eixo cruzado.
+- `gap-2`, `gap-3`, `g-4`: controlam espacamentos.
+- `row`, `col-12`, `col-md-6`, `col-lg-8`: controlam o grid responsivo.
 
-Classes de item:
+## Observacao de estudo
 
-- `flex-1`: item cresce para ocupar espaço disponível.
-- `flex-auto`: item cresce e encolhe respeitando seu tamanho natural.
-- `flex-none`: item mantém seu tamanho.
-- `grow`, `grow-0`: controla crescimento.
-- `shrink`, `shrink-0`: controla encolhimento.
-- `basis-25`, `basis-33`, `basis-50`, `basis-100`: controla tamanho inicial.
-- `order-first`, `order-last`: muda a ordem visual.
-- `self-start`, `self-center`, `self-end`, `self-stretch`: alinha um item individualmente.
-
-O menu, o cabeçalho, o formulário de reserva e a página Nossa História já usam Flexbox com variáveis em `public/css/variables.css`.
-
-## Observação De Estudo
-
-Os arquivos HTML, CSS e JavaScript possuem comentários explicando a função dos principais blocos do código.
+Os arquivos HTML, CSS e JavaScript possuem comentarios explicando a funcao dos principais blocos do codigo. A ideia e manter os comentarios didaticos enquanto eles ajudam a entender o projeto, sem transformar o codigo em repeticao do obvio.
 
 [Voltar ao topo](#cantina-da-nonna)
